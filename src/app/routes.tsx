@@ -3,6 +3,8 @@ import Layout from './components/Layout';
 import OnboardingWizard from './components/OnboardingWizard';
 import RoadmapReview from './components/RoadmapReview';
 import NewHireView from './components/NewHireView';
+import NotificationsPage from './components/NotificationsPage';
+import HelpPage from './components/HelpPage';
 import { AppProvider } from './context/AppContext';
 
 function Root() {
@@ -21,6 +23,8 @@ export const router = createBrowserRouter([
       { index: true, Component: OnboardingWizard },
       { path: 'roadmap', Component: RoadmapReview },
       { path: 'new-hire', Component: NewHireView },
+      { path: 'notifications', Component: NotificationsPage },
+      { path: 'help', Component: HelpPage },
     ],
   },
 ]);

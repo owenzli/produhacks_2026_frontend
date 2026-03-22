@@ -420,13 +420,13 @@ export default function Layout() {
             </div>
           </div>
           <div className="flex items-center gap-2 ml-auto">
-            <button className="relative p-2 rounded-lg hover:bg-gray-50 transition-colors">
+            <button onClick={() => navigate('/notifications')} className="relative p-2 rounded-lg hover:bg-gray-50 transition-colors">
               <Bell className="w-5 h-5 text-gray-500" />
               {docDebtCount > 0 && (
                 <span className="absolute top-1 right-1 w-2 h-2 bg-amber-500 rounded-full" />
               )}
             </button>
-            <button className="p-2 rounded-lg hover:bg-gray-50 transition-colors">
+            <button onClick={() => navigate('/help')} className="p-2 rounded-lg hover:bg-gray-50 transition-colors">
               <HelpCircle className="w-5 h-5 text-gray-500" />
             </button>
             <div className="w-px h-5 bg-gray-200" />
