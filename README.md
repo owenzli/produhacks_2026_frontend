@@ -16,6 +16,8 @@ Core features shipped:
 - New hire checklist view with progress tracking
 - Manager dashboard with active onboarding status
 
+
+
   ## Running the code
 
   Run `npm i` to install the dependencies.
