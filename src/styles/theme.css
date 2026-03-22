@@ -262,12 +262,12 @@
 .btn:active:not(:disabled) { transform: translateY(1px); }
 
 .btn-primary {
-  background: #1B4FD8;
+  background: rgba(0, 166, 62, 0.88);
   color: #ffffff;
-  border: 1px solid #1B4FD8;
+  border: 1px solid rgba(0, 166, 62, 0.7);
 }
-.btn-primary:hover { background: #1640B8; border-color: #1640B8; }
-.btn-primary:focus-visible { outline: 2px solid #93B4F8; outline-offset: 2px; }
+.btn-primary:hover { background: rgba(0, 150, 55, 0.95); border-color: rgba(0, 150, 55, 0.8); }
+.btn-primary:focus-visible { outline: 2px solid rgba(0, 166, 62, 0.4); outline-offset: 2px; }
 
 .btn-secondary {
   background: #ffffff;
@@ -378,10 +378,10 @@
 
 /* ── Accent System ───────────────────────────────────────────────── */
 :root {
-  --accent: #1B4FD8;
-  --accent-hover: #1640B8;
-  --accent-subtle: #EFF4FF;
-  --accent-text: #1B4FD8;
+  --accent: rgba(0, 166, 62, 0.88);
+  --accent-hover: rgba(0, 150, 55, 0.95);
+  --accent-subtle: rgba(0, 166, 62, 0.06);
+  --accent-text: #009936;
 }
 
 .accent { color: var(--accent); }

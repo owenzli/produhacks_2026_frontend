@@ -53,7 +53,7 @@ interface FeatureCard {
 
 const FEATURES: FeatureCard[] = [
   { icon: Wand2,        color: 'from-green-500 to-gray-900',  title: 'Onboarding Wizard',   desc: 'Enter new hire details, select a role template, and generate a complete week-by-week roadmap in one flow.' },
-  { icon: Map,          color: 'from-blue-500 to-indigo-600',    title: 'Roadmap Review',       desc: 'Edit tasks, assign points of contact, link docs, flag doc debt, and approve the plan for launch.' },
+  { icon: Map,          color: 'from-green-500 to-green-700',    title: 'Roadmap Review',       desc: 'Edit tasks, assign points of contact, link docs, flag doc debt, and approve the plan for launch.' },
   { icon: Filter,       color: 'from-purple-500 to-violet-600',  title: 'Smart Filters',        desc: 'Filter tasks by type (Tech Setup, Doc Debt, Overdue, Completable Now) and sort by week, due date, or status.' },
   { icon: AlertTriangle,color: 'from-amber-500 to-orange-500',   title: 'Doc Debt Tracking',    desc: 'Tasks without linked documentation are flagged automatically. Resolve them before launch using links, notes, or owner assignments.' },
   { icon: Users,        color: 'from-teal-500 to-cyan-600',      title: 'Team Setup',           desc: 'Add onboarding contacts and team collaborators with roles, responsibilities, and scheduling links.' },

@@ -16,7 +16,7 @@ const COLORS = [
   'from-pink-500 to-rose-600',
   'from-purple-500 to-violet-600',
   'from-amber-500 to-orange-600',
-  'from-blue-500 to-indigo-600',
+  'from-green-500 to-green-700',
   'from-teal-500 to-gray-900',
 ];
 

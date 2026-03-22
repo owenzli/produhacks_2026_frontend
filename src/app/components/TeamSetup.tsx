@@ -12,7 +12,7 @@ const AVATAR_COLORS = [
   'from-rose-400 to-rose-500',
   'from-amber-400 to-orange-500',
   'from-teal-400 to-teal-600',
-  'from-indigo-400 to-indigo-600',
+  'from-green-400 to-green-600',
   'from-pink-400 to-pink-600',
   'from-cyan-500 to-cyan-700',
   'from-lime-400 to-green-600',

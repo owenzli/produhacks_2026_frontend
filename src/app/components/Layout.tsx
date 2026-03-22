@@ -52,7 +52,7 @@ export default function Layout() {
         {/* Brand header */}
         <div className="px-[18px] py-[14px] flex-shrink-0 border-b border-white/[0.06]">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-[#4F46E5] flex items-center justify-center flex-shrink-0">
+            <div className="w-8 h-8 bg-[#00A63E] flex items-center justify-center flex-shrink-0">
               <Wand2 className="w-4 h-4 text-white" />
             </div>
             <AnimatePresence initial={false}>
@@ -142,10 +142,10 @@ export default function Layout() {
                                   <p className="text-xs text-white/40 font-mono truncate">{h.info.roleTitle}</p>
                                 </div>
                                 {h.id === activeHireId && (
-                                  <CheckCircle2 className="w-4 h-4 text-indigo-400 flex-shrink-0" />
+                                  <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0" />
                                 )}
                                 {h.launched && h.id !== activeHireId && (
-                                  <span className="text-xs bg-indigo-600/20 text-indigo-300 px-1.5 py-0.5 font-mono-label flex-shrink-0">Live</span>
+                                  <span className="text-xs bg-green-600/20 text-green-300 px-1.5 py-0.5 font-mono-label flex-shrink-0">Live</span>
                                 )}
                               </button>
                             ))}
@@ -187,7 +187,7 @@ export default function Layout() {
                   <div className="flex items-center justify-between px-2 mb-2">
                     <p className="font-mono-label text-white/30">Manage Hire</p>
                     {launched && (
-                      <span className="flex items-center gap-1 font-mono-label text-indigo-400 bg-indigo-600/10 px-1.5 py-0.5">
+                      <span className="flex items-center gap-1 font-mono-label text-green-400 bg-green-600/10 px-1.5 py-0.5">
                         <CheckCircle2 className="w-3 h-3" /> Live
                       </span>
                     )}
@@ -213,7 +213,7 @@ export default function Layout() {
                   >
                     {({ isActive }) => (
                       <>
-                        {isActive && <span className="absolute left-0 top-0 bottom-0 w-0.5 bg-indigo-500" />}
+                        {isActive && <span className="absolute left-0 top-0 bottom-0 w-0.5 bg-green-500" />}
                         <div className={`flex items-center justify-center flex-shrink-0 transition-colors ${
                           navCollapsed ? 'w-9 h-9' : 'w-7 h-7'
                         } ${
@@ -317,9 +317,9 @@ export default function Layout() {
                     >
                       {({ isActive }) => (
                         <>
-                          {isActive && <span className="absolute left-0 top-0 bottom-0 w-0.5 bg-indigo-500" />}
+                          {isActive && <span className="absolute left-0 top-0 bottom-0 w-0.5 bg-green-500" />}
                           <div className={`w-5 h-5 border flex items-center justify-center flex-shrink-0 text-xs font-mono font-bold transition-colors ${
-                            isActive ? 'bg-indigo-500 border-indigo-500 text-white' : 'border-white/20 text-white/30 group-hover:border-white/40'
+                            isActive ? 'bg-green-500 border-green-500 text-white' : 'border-white/20 text-white/30 group-hover:border-white/40'
                           }`}>
                             {stepNum}
                           </div>

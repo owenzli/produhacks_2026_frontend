@@ -92,7 +92,7 @@ export const FILTER_OPTIONS: FilterOption[] = [
     label: 'In Progress',
     icon: CircleDot,
     color: 'border-gray-200 text-gray-900 hover:bg-gray-50',
-    activeColor: 'bg-gray-900 border-indigo-600 text-white',
+    activeColor: 'bg-gray-900 border-green-600 text-white',
     count: tasks => tasks.filter(t => t.status === 'in-progress').length,
     predicate: t => t.status === 'in-progress',
   },

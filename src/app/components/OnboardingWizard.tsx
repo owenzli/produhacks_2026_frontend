@@ -21,7 +21,7 @@ interface TemplateOption {
 
 const TEMPLATES_BY_DEPARTMENT: Record<string, TemplateOption[]> = {
   Engineering: [
-    { id: 'frontend', label: 'Frontend Engineer', icon: Code2, color: 'from-blue-500 to-indigo-600', taskCount: 15, focus: ['React / TypeScript', 'UI Components', 'Design System'] },
+    { id: 'frontend', label: 'Frontend Engineer', icon: Code2, color: 'from-green-500 to-green-700', taskCount: 15, focus: ['React / TypeScript', 'UI Components', 'Design System'] },
     { id: 'backend', label: 'Backend Engineer', icon: Server, color: 'from-purple-500 to-violet-600', taskCount: 14, focus: ['APIs & Services', 'Databases', 'Security'] },
     { id: 'fullstack', label: 'Full-Stack Engineer', icon: Layers, color: 'from-green-500 to-gray-900', taskCount: 18, focus: ['Frontend + Backend', 'E2E Features', 'System Design'] },
     { id: 'engineering-manager', label: 'Engineering Manager', icon: Users2, color: 'from-rose-500 to-pink-600', taskCount: 14, focus: ['Team Leadership', 'Strategy', 'People Ops'] },
@@ -40,7 +40,7 @@ const TEMPLATES_BY_DEPARTMENT: Record<string, TemplateOption[]> = {
   ],
   Data: [
     { id: 'data-analyst', label: 'Data Analyst', icon: BarChart, color: 'from-teal-500 to-gray-900', taskCount: 13, focus: ['SQL & BI Tools', 'Dashboards', 'Stakeholder Reports'] },
-    { id: 'data-scientist', label: 'Data Scientist', icon: Cpu, color: 'from-indigo-500 to-violet-600', taskCount: 12, focus: ['ML Models', 'Experiment Design', 'Python / Notebooks'] },
+    { id: 'data-scientist', label: 'Data Scientist', icon: Cpu, color: 'from-green-600 to-emerald-700', taskCount: 12, focus: ['ML Models', 'Experiment Design', 'Python / Notebooks'] },
     { id: 'data-engineer', label: 'Data Engineer', icon: Database, color: 'from-gray-800 to-teal-600', taskCount: 12, focus: ['Pipelines & ETL', 'dbt / Airflow', 'Data Warehouse'] },
   ],
   Security: [
