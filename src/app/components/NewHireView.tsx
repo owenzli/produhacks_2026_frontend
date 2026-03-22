@@ -1,18 +1,15 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import {
   CheckCircle2, Circle, ExternalLink, Calendar, User, AlertCircle,
   Clock, ChevronRight, PartyPopper, ArrowLeft, Wrench, Link2,
-  TrendingUp, List, Flag, Mail, UserCheck, Network
+  TrendingUp, List, Flag, Mail, UserCheck, Network, Eye, Pencil
 } from 'lucide-react';
+import NewHirePreview from './NewHirePreview';
 import { useApp, Task, Week, TeamContact, isDocDebt } from '../context/AppContext';
 import { motion, AnimatePresence } from 'motion/react';
 
-const WEEKS: { week: Week; label: string }[] = [
-  { week: 1, label: 'Week 1 — Foundation & Setup' },
-  { week: 2, label: 'Week 2 — Ramp Up' },
-  { week: 3, label: 'Week 3 — Contribution' },
-  { week: 4, label: 'Week 4+ — Independence' },
-];
+import { getWeeksList } from './roadmap/constants';
 
 function initials(name: string) {
   return name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
@@ -134,6 +131,7 @@ function ContactCard({ contact }: { contact: TeamContact }) {
 export default function NewHireView() {
   const navigate = useNavigate();
   const { hireInfo, tasks, launched, contacts, updateTask } = useApp();
+  const [showPreview, setShowPreview] = useState(false);
 
   if (!launched) {
     return (
@@ -195,10 +193,16 @@ export default function NewHireView() {
               {hireInfo?.name}'s Onboarding <PartyPopper className="w-5 h-5 text-amber-400" />
             </h1>
           </div>
-          <button onClick={() => navigate('/roadmap')}
-            className="ml-auto flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 border border-gray-200 px-3 py-2 rounded-xl hover:bg-gray-50 transition-colors">
-            <ArrowLeft className="w-4 h-4" />Edit Roadmap
-          </button>
+          <div className="ml-auto flex items-center gap-2">
+            <button onClick={() => setShowPreview(true)}
+              className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 border border-gray-200 px-3 py-2 rounded-xl hover:bg-gray-50 transition-colors">
+              <Eye className="w-4 h-4" />Preview New Hire View
+            </button>
+            <button onClick={() => navigate('/roadmap')}
+              className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 border border-gray-200 px-3 py-2 rounded-xl hover:bg-gray-50 transition-colors">
+              <Pencil className="w-4 h-4" />Edit Roadmap
+            </button>
+          </div>
         </div>
       </div>
 
@@ -311,9 +315,8 @@ export default function NewHireView() {
             <h3 className="text-gray-800">Full Onboarding Checklist</h3>
           </div>
           <div className="space-y-6">
-            {WEEKS.map(({ week, label }) => {
+            {getWeeksList(Math.max(1, ...tasks.map(t => t.week))).map(({ week, label, sublabel }) => {
               const weekTasks = tasks.filter(t => t.week === week);
-              if (weekTasks.length === 0) return null;
               const doneCount = weekTasks.filter(t => t.completed).length;
               const weekPct = Math.round((doneCount / weekTasks.length) * 100);
               return (
@@ -322,7 +325,7 @@ export default function NewHireView() {
                     <div className="w-7 h-7 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0">
                       <span className="text-white text-xs font-bold">{week}</span>
                     </div>
-                    <span className="font-medium text-gray-700 text-sm">{label}</span>
+                    <span className="font-medium text-gray-700 text-sm">{label} — {sublabel}</span>
                     <div className="flex-1 flex items-center gap-2">
                       <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden max-w-24">
                         <div className="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full transition-all duration-500"
@@ -349,6 +352,11 @@ export default function NewHireView() {
           </motion.div>
         )}
       </div>
+
+      {/* ── Preview Modal ── */}
+      <AnimatePresence>
+        {showPreview && <NewHirePreview onClose={() => setShowPreview(false)} />}
+      </AnimatePresence>
     </div>
   );
 }

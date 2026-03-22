@@ -4,7 +4,8 @@ import {
   Wand2, ChevronRight, ChevronLeft, Code2, Server, Layers,
   Rocket, Users2, CheckCircle2, Loader2, Sparkles, Calendar,
   Building2, User, Plus, Target, BarChart2, Palette, Search,
-  Database, ShieldCheck, ClipboardCheck, Activity, Cpu, BarChart
+  Database, ShieldCheck, ClipboardCheck, Activity, Cpu, BarChart,
+  Star, Crown, Hexagon, Zap
 } from 'lucide-react';
 import { useApp, HireInfo, RoleTemplate, WorkMode, generateRoadmapTasks, generateDefaultContacts } from '../context/AppContext';
 import { motion } from 'motion/react';
@@ -51,7 +52,7 @@ const TEMPLATES_BY_DEPARTMENT: Record<string, TemplateOption[]> = {
   ],
 };
 
-const ALL_TEMPLATES: TemplateOption[] = Object.values(TEMPLATES_BY_DEPARTMENT).flat();
+// The flat combined list is now generated inside the component
 
 const DEPARTMENTS = Object.keys(TEMPLATES_BY_DEPARTMENT);
 
@@ -70,7 +71,29 @@ const PREVIEW_WEEKS = [
 
 export default function OnboardingWizard() {
   const navigate = useNavigate();
-  const { addHireRecord, hires } = useApp();
+  const { addHireRecord, hires, customTemplates } = useApp();
+  
+  const templatesByDept: Record<string, TemplateOption[]> = {};
+  for (const [dept, templates] of Object.entries(TEMPLATES_BY_DEPARTMENT)) {
+    templatesByDept[dept] = [...templates];
+  }
+  
+  const iconMap: Record<string, React.ElementType> = { Star, Crown, Hexagon, Zap };
+  customTemplates.forEach(ct => {
+    if (!templatesByDept[ct.department]) {
+      templatesByDept[ct.department] = [];
+    }
+    templatesByDept[ct.department].push({
+      id: ct.id,
+      label: ct.label,
+      icon: iconMap[ct.iconName] || Star,
+      color: ct.color,
+      taskCount: ct.tasks.length,
+      focus: ['Custom Template'],
+    });
+  });
+
+  const ALL_TEMPLATES_MERGED = Object.values(templatesByDept).flat();
 
   const [step, setStep] = useState(1);
   const [generating, setGenerating] = useState(false);
@@ -82,10 +105,11 @@ export default function OnboardingWizard() {
     department: 'Engineering',
     startDate: '',
     workMode: 'hybrid' as WorkMode,
+    onboardingDuration: 2,
   });
   const [template, setTemplate] = useState<RoleTemplate | null>(null);
 
-  const currentTemplates = TEMPLATES_BY_DEPARTMENT[form.department] ?? [];
+  const currentTemplates = templatesByDept[form.department] ?? [];
 
   function handleDepartmentChange(dept: string) {
     setForm(f => ({ ...f, department: dept }));
@@ -218,6 +242,24 @@ export default function OnboardingWizard() {
                   ))}
                 </div>
               </div>
+              <div className="col-span-2 mt-2 bg-green-50/50 p-5 rounded-xl border border-green-100">
+                <label className="block text-sm text-gray-700 mb-3 flex items-center justify-between">
+                  <span className="font-medium flex items-center gap-2"><Calendar className="w-4 h-4 text-green-600" /> Onboarding Duration</span>
+                  <span className="font-bold text-green-700 bg-white px-3 py-1 rounded-full border border-green-200 shadow-sm">{form.onboardingDuration} Weeks</span>
+                </label>
+                <div className="flex items-center gap-4">
+                  <span className="text-xs text-gray-500 font-medium w-16 text-right">2 weeks</span>
+                  <input type="range" min="2" max="12" step="1" 
+                    value={form.onboardingDuration} onChange={e => setForm(f => ({ ...f, onboardingDuration: parseInt(e.target.value) }))}
+                    className="flex-1 h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-600" />
+                  <span className="text-xs text-gray-500 font-medium w-16">3 months</span>
+                </div>
+                <p className="text-xs text-gray-500 text-center mt-3">
+                  {form.onboardingDuration === 2 ? "Standard 2-week quick ramp-up. Tasks will be highly compressed." : 
+                   form.onboardingDuration > 8 ? "Deep integration phase. Roadmaps will stretch milestone evaluations to " + form.onboardingDuration + " weeks." : 
+                   "Balanced onboarding spread across " + form.onboardingDuration + " weeks."}
+                </p>
+              </div>
             </div>
 
             <div className="flex justify-end mt-8">
@@ -310,7 +352,8 @@ export default function OnboardingWizard() {
                       { label: 'Department', value: form.department },
                       { label: 'Start Date', value: form.startDate ? new Date(form.startDate + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '—' },
                       { label: 'Work Mode', value: WORK_MODES.find(m => m.value === form.workMode)?.label || '' },
-                      { label: 'Template', value: ALL_TEMPLATES.find(t => t.id === template)?.label || '' },
+                      { label: 'Template', value: ALL_TEMPLATES_MERGED.find(t => t.id === template)?.label || '' },
+                      { label: 'Duration', value: `${form.onboardingDuration} weeks` },
                     ].map(item => (
                       <div key={item.label}>
                         <p className="text-xs text-green-600 font-medium">{item.label}</p>

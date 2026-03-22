@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Bell, AlertTriangle, CheckCircle2, Info, Clock, Rocket, FileText, X, Filter, Trash2 } from 'lucide-react';
+import { useNavigate } from 'react-router';
+import { Bell, AlertTriangle, CheckCircle2, Info, Clock, Rocket, FileText, X, Filter, Trash2, ArrowLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useApp, isDocDebt } from '../context/AppContext';
 
@@ -114,6 +115,7 @@ const ICON_COLORS: Record<NType, string> = {
 };
 
 export default function NotificationsPage() {
+  const navigate = useNavigate();
   const { tasks, hireInfo, launched } = useApp();
   const docDebtCount = tasks.filter(t => isDocDebt(t)).length;
   const [filter, setFilter] = useState<NFilter>('all');
@@ -149,6 +151,11 @@ export default function NotificationsPage() {
       {/* Header */}
       <div className="bg-white border-b border-gray-100 px-6 py-5 sticky top-0 z-20 shadow-sm">
         <div className="max-w-3xl mx-auto flex items-center gap-4">
+          <button 
+            onClick={() => navigate(-1)} 
+            className="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors flex-shrink-0">
+            <ArrowLeft className="w-5 h-5" />
+          </button>
           <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center flex-shrink-0">
             <Bell className="w-5 h-5 text-white" />
           </div>

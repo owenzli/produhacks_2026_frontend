@@ -5,6 +5,7 @@ import RoadmapReview from './components/RoadmapReview';
 import NewHireView from './components/NewHireView';
 import NotificationsPage from './components/NotificationsPage';
 import HelpPage from './components/HelpPage';
+import TemplateBuilder from './components/TemplateBuilder';
 import { AppProvider } from './context/AppContext';
 
 function Root() {
@@ -25,6 +26,7 @@ export const router = createBrowserRouter([
       { path: 'new-hire', Component: NewHireView },
       { path: 'notifications', Component: NotificationsPage },
       { path: 'help', Component: HelpPage },
+      { path: 'templates/new', Component: TemplateBuilder },
     ],
   },
 ]);

@@ -191,21 +191,7 @@ export default function Layout() {
                     )}
                   </div>
                 )}
-                {/* Re-onboard shortcut — collapsed to icon, expanded shows label */}
-                <button
-                  onClick={handleAddNewHire}
-                  title={navCollapsed ? 'New hire wizard' : undefined}
-                  className={`w-full flex items-center gap-3 rounded-xl transition-all group text-gray-400 hover:text-green-700 hover:bg-green-50/60 ${
-                    navCollapsed ? 'justify-center px-0 py-2' : 'px-3 py-2'
-                  }`}
-                >
-                  <div className={`rounded-lg flex items-center justify-center flex-shrink-0 bg-gray-100 group-hover:bg-green-100 transition-colors ${navCollapsed ? 'w-9 h-9' : 'w-7 h-7'}`}>
-                    <Wand2 className="w-3.5 h-3.5 text-gray-400 group-hover:text-green-600" />
-                  </div>
-                  {!navCollapsed && <span className="text-xs font-medium">+ New hire wizard</span>}
-                </button>
 
-                <div className={`${navCollapsed ? '' : 'border-t border-gray-100 pt-2 mt-1'}`} />
 
                 {activeNavItems.map(({ to, end, icon: Icon, label, sublabel }) => (
                   <NavLink
@@ -358,6 +344,49 @@ export default function Layout() {
               </motion.div>
             )}
           </AnimatePresence>
+
+          {/* Persistent Workspace Links */}
+          <div className="mt-4 pt-4 border-t border-gray-100">
+            {!navCollapsed && <p className="text-gray-400 text-xs px-2 mb-2 uppercase tracking-wider">Workspace</p>}
+            <NavLink
+              to="/templates/new"
+              title={navCollapsed ? 'Template Builder' : undefined}
+              className={({ isActive }) =>
+                `flex items-center gap-3 rounded-xl transition-all group ${
+                  navCollapsed ? 'justify-center px-0 py-2.5' : 'px-3 py-2.5'
+                } ${
+                  isActive
+                    ? 'bg-green-50 text-green-700 shadow-sm'
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
+                }`
+              }
+            >
+              {({ isActive }) => (
+                <>
+                  <div className={`rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
+                    navCollapsed ? 'w-9 h-9' : 'w-8 h-8'
+                  } ${
+                    isActive ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-500 group-hover:bg-gray-200'
+                  }`}>
+                    <LayoutList className="w-4 h-4" />
+                  </div>
+                  <AnimatePresence initial={false}>
+                    {!navCollapsed && (
+                      <motion.div
+                        initial={{ opacity: 0, width: 0 }}
+                        animate={{ opacity: 1, width: 'auto' }}
+                        exit={{ opacity: 0, width: 0 }}
+                        transition={{ duration: 0.15 }}
+                        className="flex-1 min-w-0 overflow-hidden"
+                      >
+                        <p className={`text-sm font-medium ${isActive ? 'text-green-700' : ''}`}>Role Templates</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </>
+              )}
+            </NavLink>
+          </div>
         </nav>
 
         {/* Footer */}
