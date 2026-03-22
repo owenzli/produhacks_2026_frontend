@@ -230,12 +230,12 @@ export default function Layout() {
                               transition={{ duration: 0.15 }}
                               className="flex-1 min-w-0 overflow-hidden"
                             >
-                              <p className={`text-sm font-medium truncate ${isActive ? 'text-gray-900' : ''}`}>{label}</p>
-                              <p className={`text-xs truncate ${isActive ? 'text-gray-700' : 'text-gray-400'}`}>{sublabel}</p>
+                              <p className={`text-sm font-medium truncate ${isActive ? 'text-white' : 'text-white/60'}`}>{label}</p>
+                              <p className={`text-xs truncate font-mono-label ${isActive ? 'text-white/50' : 'text-white/25'}`}>{sublabel}</p>
                             </motion.div>
                           )}
                         </AnimatePresence>
-                        {!navCollapsed && isActive && <ChevronRight className="w-4 h-4 text-gray-700 flex-shrink-0" />}
+                        {!navCollapsed && isActive && <ChevronRight className="w-4 h-4 text-white/30 flex-shrink-0" />}
                       </>
                     )}
                   </NavLink>
@@ -264,7 +264,7 @@ export default function Layout() {
                           {docDebtCount > 0 && (
                             <div className="flex items-center justify-between">
                               <span className="text-xs text-amber-400/80">Doc Debt</span>
-                              <span className="bg-amber-500/20 text-amber-300 text-xs font-mono font-semibold px-1.5 py-0.5">{docDebtCount}</span>
+                              <span className="text-xs font-mono font-semibold text-amber-300">{docDebtCount}</span>
                             </div>
                           )}
                         </div>
