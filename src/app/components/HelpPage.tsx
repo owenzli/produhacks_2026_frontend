@@ -52,13 +52,13 @@ interface FeatureCard {
 }
 
 const FEATURES: FeatureCard[] = [
-  { icon: Wand2,        color: 'from-green-500 to-emerald-600',  title: 'Onboarding Wizard',   desc: 'Enter new hire details, select a role template, and generate a complete week-by-week roadmap in one flow.' },
+  { icon: Wand2,        color: 'from-green-500 to-gray-900',  title: 'Onboarding Wizard',   desc: 'Enter new hire details, select a role template, and generate a complete week-by-week roadmap in one flow.' },
   { icon: Map,          color: 'from-blue-500 to-indigo-600',    title: 'Roadmap Review',       desc: 'Edit tasks, assign points of contact, link docs, flag doc debt, and approve the plan for launch.' },
   { icon: Filter,       color: 'from-purple-500 to-violet-600',  title: 'Smart Filters',        desc: 'Filter tasks by type (Tech Setup, Doc Debt, Overdue, Completable Now) and sort by week, due date, or status.' },
   { icon: AlertTriangle,color: 'from-amber-500 to-orange-500',   title: 'Doc Debt Tracking',    desc: 'Tasks without linked documentation are flagged automatically. Resolve them before launch using links, notes, or owner assignments.' },
   { icon: Users,        color: 'from-teal-500 to-cyan-600',      title: 'Team Setup',           desc: 'Add onboarding contacts and team collaborators with roles, responsibilities, and scheduling links.' },
   { icon: Eye,          color: 'from-rose-500 to-pink-600',      title: 'New Hire View',        desc: 'Preview what your new hire will see: a progress ring, task checklist, and team contact cards.' },
-  { icon: Rocket,       color: 'from-green-600 to-emerald-700',  title: 'Approve & Launch',     desc: 'When ready, launch the plan to activate the new hire\'s view. Unresolved doc debt is flagged before you proceed.' },
+  { icon: Rocket,       color: 'from-gray-800 to-black',  title: 'Approve & Launch',     desc: 'When ready, launch the plan to activate the new hire\'s view. Unresolved doc debt is flagged before you proceed.' },
   { icon: LayoutList,   color: 'from-gray-600 to-gray-700',      title: 'Multi-Hire Sidebar',   desc: 'Manage multiple new hires from a single workspace. Switch context instantly via the hire switcher dropdown.' },
 ];
 
@@ -73,19 +73,19 @@ const SHORTCUTS = [
 function FAQAccordion({ item }: { item: FAQItem }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className={`border rounded-xl overflow-hidden transition-all ${open ? 'border-green-200' : 'border-gray-100'}`}>
+    <div className={`border rounded-sm overflow-hidden transition-all ${open ? 'border-gray-200' : 'border-gray-100'}`}>
       <button onClick={() => setOpen(v => !v)}
-        className={`w-full flex items-center gap-3 px-5 py-4 text-left transition-colors ${open ? 'bg-green-50/60' : 'bg-white hover:bg-gray-50'}`}>
-        <span className={`text-sm font-medium flex-1 ${open ? 'text-green-800' : 'text-gray-700'}`}>{item.q}</span>
+        className={`w-full flex items-center gap-3 px-5 py-4 text-left transition-colors ${open ? 'bg-gray-50/60' : 'bg-white hover:bg-gray-50'}`}>
+        <span className={`text-sm font-medium flex-1 ${open ? 'text-gray-900' : 'text-gray-700'}`}>{item.q}</span>
         {open
-          ? <ChevronUp className="w-4 h-4 text-green-600 flex-shrink-0" />
+          ? <ChevronUp className="w-4 h-4 text-gray-900 flex-shrink-0" />
           : <ChevronDown className="w-4 h-4 text-gray-400 flex-shrink-0" />}
       </button>
       <AnimatePresence initial={false}>
         {open && (
           <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden">
-            <div className="px-5 py-4 bg-white border-t border-green-100">
+            <div className="px-5 py-4 bg-white border-t border-gray-200">
               <p className="text-sm text-gray-600 leading-relaxed">{item.a}</p>
             </div>
           </motion.div>
@@ -103,11 +103,11 @@ export default function HelpPage() {
   );
 
   return (
-    <div className="min-h-full bg-gradient-to-br from-green-50/30 via-white to-emerald-50/20">
+    <div className="min-h-full bg-gradient-to-br from-gray-50/30 via-white to-gray-50/20">
       {/* Header */}
-      <div className="bg-white border-b border-gray-100 px-6 py-5 sticky top-0 z-20 shadow-sm">
+      <div className="bg-white border-b border-gray-100 px-4 py-5 sticky top-0 z-20 shadow-sm">
         <div className="max-w-4xl mx-auto flex items-center gap-4">
-          <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0">
+          <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-gray-900 rounded-sm flex items-center justify-center flex-shrink-0">
             <HelpCircle className="w-5 h-5 text-white" />
           </div>
           <div>
@@ -117,25 +117,25 @@ export default function HelpPage() {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 py-8 space-y-10">
+      <div className="max-w-4xl mx-auto px-4 py-5 space-y-10">
 
         {/* Quick start */}
         <section>
           <div className="flex items-center gap-2 mb-4">
-            <Zap className="w-4 h-4 text-green-600" />
+            <Zap className="w-4 h-4 text-gray-900" />
             <h2 className="text-gray-800">Quick Start</h2>
           </div>
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+          <div className="bg-white rounded-sm border border-gray-100 shadow-sm p-6">
             <div className="flex flex-col gap-3">
               {[
-                { step: 1, icon: Wand2, color: 'bg-green-600', label: 'Open the Onboarding Wizard', desc: 'Enter the new hire\'s name, role, department, start date, and work mode.' },
+                { step: 1, icon: Wand2, color: 'bg-gray-900', label: 'Open the Onboarding Wizard', desc: 'Enter the new hire\'s name, role, department, start date, and work mode.' },
                 { step: 2, icon: Flag, color: 'bg-blue-600', label: 'Choose a role template', desc: 'Select from 16 templates across 7 departments to auto-generate tasks.' },
                 { step: 3, icon: Map, color: 'bg-purple-600', label: 'Review and edit the roadmap', desc: 'Add docs, assign points of contact, fix doc debt, and add custom tasks.' },
                 { step: 4, icon: Users, color: 'bg-teal-600', label: 'Set up the team', desc: 'Add onboarding contacts and collaborators on the Team & Contacts tab.' },
                 { step: 5, icon: Rocket, color: 'bg-emerald-600', label: 'Approve & Launch', desc: 'Click "Approve & Launch" to activate the new hire\'s view.' },
               ].map((s, i) => (
                 <div key={s.step} className="flex items-start gap-4">
-                  <div className={`w-8 h-8 ${s.color} rounded-lg flex items-center justify-center flex-shrink-0 text-white`}>
+                  <div className={`w-8 h-8 ${s.color} rounded-sm flex items-center justify-center flex-shrink-0 text-white`}>
                     <s.icon className="w-4 h-4" />
                   </div>
                   <div className="flex-1 min-w-0 pt-0.5">
@@ -156,13 +156,13 @@ export default function HelpPage() {
         {/* Features */}
         <section>
           <div className="flex items-center gap-2 mb-4">
-            <BookOpen className="w-4 h-4 text-green-600" />
+            <BookOpen className="w-4 h-4 text-gray-900" />
             <h2 className="text-gray-800">Feature Guide</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {FEATURES.map(f => (
-              <div key={f.title} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-start gap-4">
-                <div className={`w-9 h-9 bg-gradient-to-br ${f.color} rounded-xl flex items-center justify-center flex-shrink-0`}>
+              <div key={f.title} className="bg-white rounded-sm border border-gray-100 shadow-sm p-5 flex items-start gap-4">
+                <div className={`w-9 h-9 bg-gradient-to-br ${f.color} rounded-sm flex items-center justify-center flex-shrink-0`}>
                   <f.icon className="w-4 h-4 text-white" />
                 </div>
                 <div>
@@ -177,10 +177,10 @@ export default function HelpPage() {
         {/* Keyboard shortcuts */}
         <section>
           <div className="flex items-center gap-2 mb-4">
-            <CheckCircle2 className="w-4 h-4 text-green-600" />
+            <CheckCircle2 className="w-4 h-4 text-gray-900" />
             <h2 className="text-gray-800">Tips & Shortcuts</h2>
           </div>
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <div className="bg-white rounded-sm border border-gray-100 shadow-sm overflow-hidden">
             {SHORTCUTS.map((s, i) => (
               <div key={i} className={`flex items-center gap-4 px-5 py-3 ${i < SHORTCUTS.length - 1 ? 'border-b border-gray-50' : ''}`}>
                 <div className="flex gap-1.5">
@@ -197,12 +197,12 @@ export default function HelpPage() {
         {/* FAQ */}
         <section>
           <div className="flex items-center gap-2 mb-4">
-            <MessageCircle className="w-4 h-4 text-green-600" />
+            <MessageCircle className="w-4 h-4 text-gray-900" />
             <h2 className="text-gray-800">Frequently Asked Questions</h2>
           </div>
 
           {/* FAQ Search */}
-          <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-4 py-2.5 mb-4 shadow-sm">
+          <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-sm px-4 py-2.5 mb-4 shadow-sm">
             <Search className="w-4 h-4 text-gray-400 flex-shrink-0" />
             <input
               type="text"
@@ -227,7 +227,7 @@ export default function HelpPage() {
 
         {/* Contact */}
         <section>
-          <div className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-6 text-white">
+          <div className="bg-gradient-to-r from-gray-800 to-gray-900 rounded-sm p-4 text-white">
             <div className="flex items-center gap-3 mb-2">
               <MessageCircle className="w-5 h-5" />
               <h3 className="font-semibold">Still need help?</h3>
@@ -235,7 +235,7 @@ export default function HelpPage() {
             <p className="text-green-100 text-sm mb-4">
               Reach out to your LaunchPath admin or send us a message and we'll get back to you within one business day.
             </p>
-            <button className="bg-white text-green-700 text-sm font-semibold px-4 py-2 rounded-xl hover:bg-green-50 transition-colors">
+            <button className="bg-white text-gray-900 text-sm font-semibold px-4 py-2 rounded-sm hover:bg-gray-50 transition-colors">
               Contact Support
             </button>
           </div>

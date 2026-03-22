@@ -60,7 +60,7 @@ export function DocDebtPanel({ task, onUpdate, onClose }: {
 
   return (
     <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-      <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mt-2 mx-4 mb-2">
+      <div className="bg-amber-50 border border-amber-200 rounded-sm p-4 mt-2 mx-4 mb-2">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <AlertTriangle className="w-4 h-4 text-amber-600" />
@@ -75,7 +75,7 @@ export function DocDebtPanel({ task, onUpdate, onClose }: {
             { id: 'assign' as const, icon: UserCheck,  label: 'Assign Owner'  },
           ]).map(opt => (
             <button key={opt.id} onClick={() => { setMode(opt.id); setValue(''); }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all border ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium transition-all border ${
                 mode === opt.id ? 'bg-amber-600 text-white border-amber-600' : 'bg-white text-amber-700 border-amber-200 hover:bg-amber-100'
               }`}>
               <opt.icon className="w-3.5 h-3.5" />{opt.label}
@@ -86,17 +86,17 @@ export function DocDebtPanel({ task, onUpdate, onClose }: {
           <div className="flex gap-2">
             {mode === 'assign' ? (
               <select value={value} onChange={e => setValue(e.target.value)}
-                className="flex-1 border border-amber-200 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-300">
+                className="flex-1 border border-amber-200 rounded-sm px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-300">
                 <option value="">Select person…</option>
                 {POC_LIST.map(o => <option key={o}>{o}</option>)}
               </select>
             ) : (
               <input type="text" value={value} onChange={e => setValue(e.target.value)}
                 placeholder={mode === 'link' ? 'https://notion.so/your-doc' : 'Brief explanation…'}
-                className="flex-1 border border-amber-200 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-300" />
+                className="flex-1 border border-amber-200 rounded-sm px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-300" />
             )}
             <button onClick={resolve} disabled={!value}
-              className="bg-amber-600 hover:bg-amber-700 disabled:opacity-40 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">Save</button>
+              className="bg-amber-600 hover:bg-amber-700 disabled:opacity-40 text-white px-4 py-2 rounded-sm text-sm font-medium transition-colors">Save</button>
           </div>
         )}
       </div>
@@ -126,7 +126,7 @@ export function TaskRow({ task }: { task: Task }) {
       <div className={`flex items-center gap-3 px-4 py-3 border-b ${debt ? 'border-amber-100' : 'border-gray-50'}`}>
 
         {/* Tech-setup dot indicator */}
-        <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 mt-0.5 self-start ${task.isTechnicalSetup ? 'bg-blue-400' : 'bg-gray-200'}`} />
+        <div className={`w-1.5 h-1.5 rounded-sm flex-shrink-0 mt-0.5 self-start ${task.isTechnicalSetup ? 'bg-blue-400' : 'bg-gray-200'}`} />
 
         {/* Title + badges */}
         <div className="flex-1 min-w-0">
@@ -134,11 +134,11 @@ export function TaskRow({ task }: { task: Task }) {
             <div className="flex items-center gap-2">
               <input autoFocus value={titleDraft} onChange={e => setTitleDraft(e.target.value)}
                 onKeyDown={e => { if (e.key === 'Enter') saveTitle(); if (e.key === 'Escape') setEditingTitle(false); }}
-                className="flex-1 border border-green-300 rounded-lg px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-green-200" />
-              <button onClick={saveTitle} className="p-1.5 bg-green-100 rounded-lg hover:bg-green-200 transition-colors">
-                <Save className="w-3.5 h-3.5 text-green-700" />
+                className="flex-1 border border-gray-300 rounded-sm px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-gray-200" />
+              <button onClick={saveTitle} className="p-1.5 bg-gray-100 rounded-sm hover:bg-gray-200 transition-colors">
+                <Save className="w-3.5 h-3.5 text-gray-900" />
               </button>
-              <button onClick={() => setEditingTitle(false)} className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors">
+              <button onClick={() => setEditingTitle(false)} className="p-1.5 hover:bg-gray-100 rounded-sm transition-colors">
                 <X className="w-3.5 h-3.5 text-gray-500" />
               </button>
             </div>
@@ -151,18 +151,18 @@ export function TaskRow({ task }: { task: Task }) {
               </button>
               {/* Tags — uniform height via h-5 */}
               {task.isTechnicalSetup && (
-                <span className="inline-flex items-center gap-1 h-5 text-xs bg-blue-100 text-blue-700 px-2 rounded-full flex-shrink-0">
+                <span className="inline-flex items-center gap-1 h-5 text-xs bg-blue-100 text-blue-700 px-2 rounded-sm flex-shrink-0">
                   <Wrench className="w-2.5 h-2.5" />Setup
                 </span>
               )}
               {debt && !task.docDebtResolved && (
                 <button onClick={() => setShowDebtPanel(v => !v)}
-                  className="inline-flex items-center gap-1 h-5 text-xs bg-amber-100 text-amber-700 border border-amber-200 px-2 rounded-full flex-shrink-0 hover:bg-amber-200 transition-colors">
+                  className="inline-flex items-center gap-1 h-5 text-xs bg-amber-100 text-amber-700 border border-amber-200 px-2 rounded-sm flex-shrink-0 hover:bg-amber-200 transition-colors">
                   <AlertTriangle className="w-2.5 h-2.5" />Doc Debt
                 </button>
               )}
               {task.docDebtResolved && (
-                <span className="inline-flex items-center gap-1 h-5 text-xs bg-green-100 text-green-700 px-2 rounded-full flex-shrink-0">
+                <span className="inline-flex items-center gap-1 h-5 text-xs bg-gray-100 text-gray-900 px-2 rounded-sm flex-shrink-0">
                   <CheckCircle2 className="w-2.5 h-2.5" />Resolved
                 </span>
               )}
@@ -172,7 +172,7 @@ export function TaskRow({ task }: { task: Task }) {
 
         {/* Point of Contact */}
         <select value={task.owner} onChange={e => updateTask(task.id, { owner: e.target.value })}
-          className="text-xs text-gray-600 border border-gray-200 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-200 px-2 py-1.5 hover:border-gray-300 transition-colors cursor-pointer w-34 flex-shrink-0">
+          className="text-xs text-gray-600 border border-gray-200 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-gray-200 px-2 py-1.5 hover:border-gray-300 transition-colors cursor-pointer w-34 flex-shrink-0">
           {POC_LIST.map(o => <option key={o}>{o}</option>)}
         </select>
 
@@ -180,7 +180,7 @@ export function TaskRow({ task }: { task: Task }) {
         <div className="relative flex-shrink-0">
           <Calendar className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" />
           <input type="date" value={task.dueDate} onChange={e => updateTask(task.id, { dueDate: e.target.value })}
-            className={`text-xs border rounded-lg pl-6 pr-2 py-1.5 bg-white focus:outline-none focus:ring-2 focus:ring-green-200 cursor-pointer transition-colors w-32 ${
+            className={`text-xs border rounded-sm pl-6 pr-2 py-1.5 bg-white focus:outline-none focus:ring-2 focus:ring-gray-200 cursor-pointer transition-colors w-32 ${
               isOverdue ? 'border-red-200 text-red-600 bg-red-50' : 'border-gray-200 text-gray-600 hover:border-gray-300'
             }`} />
         </div>
@@ -188,15 +188,15 @@ export function TaskRow({ task }: { task: Task }) {
         {/* Linked doc */}
         <div className="w-36 flex items-center gap-1 flex-shrink-0">
           {task.linkedDoc ? (
-            <div className="flex items-center gap-1.5 bg-green-50 border border-green-100 rounded-lg px-2 py-1.5 flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 bg-gray-50 border border-gray-200 rounded-sm px-2 py-1.5 flex-1 min-w-0">
               <DocBadge url={task.linkedDoc} />
               <a href={task.linkedDoc} target="_blank" rel="noreferrer"
-                className="text-xs text-green-700 truncate hover:underline flex items-center gap-1 flex-1 min-w-0"
+                className="text-xs text-gray-900 truncate hover:underline flex items-center gap-1 flex-1 min-w-0"
                 onClick={e => e.stopPropagation()}>
                 <span className="truncate">{getDocMeta(task.linkedDoc).label}</span>
                 <ExternalLink className="w-2.5 h-2.5 flex-shrink-0 opacity-60" />
               </a>
-              <button onClick={() => updateTask(task.id, { linkedDoc: '', docDebtResolved: false })} className="text-green-400 hover:text-green-600 flex-shrink-0">
+              <button onClick={() => updateTask(task.id, { linkedDoc: '', docDebtResolved: false })} className="text-green-400 hover:text-gray-900 flex-shrink-0">
                 <X className="w-2.5 h-2.5" />
               </button>
             </div>
@@ -204,7 +204,7 @@ export function TaskRow({ task }: { task: Task }) {
             <button onClick={() => {
               const url = prompt('Enter documentation URL:');
               if (url) updateTask(task.id, { linkedDoc: url, docDebtResolved: true });
-            }} className="text-xs text-gray-400 hover:text-green-600 border border-dashed border-gray-200 hover:border-green-300 rounded-lg px-2 py-1.5 flex items-center gap-1 flex-1 transition-all">
+            }} className="text-xs text-gray-400 hover:text-gray-900 border border-dashed border-gray-200 hover:border-gray-300 rounded-sm px-2 py-1.5 flex items-center gap-1 flex-1 transition-all">
               <Plus className="w-3 h-3" />Add link
             </button>
           )}
@@ -215,7 +215,7 @@ export function TaskRow({ task }: { task: Task }) {
           <select
             value={task.status}
             onChange={e => updateTask(task.id, { status: e.target.value as TaskStatus })}
-            className={`w-full text-xs px-2.5 py-1.5 rounded-full font-medium border-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-green-200 transition-all ${statusCfg.classes}`}
+            className={`w-full text-xs px-2.5 py-1.5 rounded-sm font-medium border-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-200 transition-all ${statusCfg.classes}`}
           >
             {STATUS_CYCLE.map(s => (
               <option key={s} value={s}>{STATUS_CONFIG[s].label}</option>
@@ -225,7 +225,7 @@ export function TaskRow({ task }: { task: Task }) {
 
         {/* Delete */}
         <button onClick={() => removeTask(task.id)}
-          className="opacity-0 group-hover:opacity-100 p-1.5 hover:bg-red-50 rounded-lg transition-all text-gray-300 hover:text-red-400 flex-shrink-0">
+          className="opacity-0 group-hover:opacity-100 p-1.5 hover:bg-red-50 rounded-sm transition-all text-gray-300 hover:text-red-400 flex-shrink-0">
           <Trash2 className="w-3.5 h-3.5" />
         </button>
       </div>

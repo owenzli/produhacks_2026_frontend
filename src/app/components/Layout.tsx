@@ -47,13 +47,13 @@ export default function Layout() {
         initial={false}
         animate={{ width: navCollapsed ? 64 : 256 }}
         transition={{ duration: 0.22, ease: 'easeInOut' }}
-        className="flex-shrink-0 bg-white border-r border-gray-100 flex flex-col shadow-sm z-10 overflow-hidden"
+        className="flex-shrink-0 bg-[#0c0c0e] border-r border-white/[0.06] flex flex-col z-10 overflow-hidden"
       >
         {/* Brand header */}
-        <div className="bg-gradient-to-br from-green-600 to-emerald-700 px-[20px] py-[16px] flex-shrink-0">
+        <div className="px-[18px] py-[14px] flex-shrink-0 border-b border-white/[0.06]">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm flex-shrink-0">
-              <Wand2 className="w-5 h-5 text-white" />
+            <div className="w-8 h-8 bg-[#4F46E5] flex items-center justify-center flex-shrink-0">
+              <Wand2 className="w-4 h-4 text-white" />
             </div>
             <AnimatePresence initial={false}>
               {!navCollapsed && (
@@ -64,8 +64,8 @@ export default function Layout() {
                   transition={{ duration: 0.15 }}
                   className="overflow-hidden whitespace-nowrap"
                 >
-                  <p className="text-white font-semibold tracking-tight">LaunchPath</p>
-                  <p className="text-green-100 text-xs">Manager Console</p>
+                  <p className="text-white font-semibold tracking-tight text-sm">LaunchPath</p>
+                  <p className="text-white/40 text-xs font-mono-label">Manager Console</p>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -86,33 +86,33 @@ export default function Layout() {
                 <p className="text-gray-400 text-xs px-2 mb-1.5 uppercase tracking-wider">Active Hire</p>
                 <button
                   onClick={() => setHireSwitcherOpen(v => !v)}
-                  className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl border transition-all text-left ${
+                  className={`w-full flex items-center gap-2.5 px-3 py-2 border transition-all text-left ${
                     hireSwitcherOpen
-                      ? 'bg-green-50 border-green-200'
-                      : 'bg-gray-50 border-gray-100 hover:bg-green-50/50 hover:border-green-100'
+                      ? 'bg-white/[0.08] border-white/[0.12]'
+                      : 'bg-white/[0.04] border-white/[0.06] hover:bg-white/[0.08] hover:border-white/[0.12]'
                   }`}
                 >
                   {hireInfo ? (
                     <>
-                      <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0 text-white text-xs font-semibold">
+                      <div className="w-7 h-7 bg-white/10 flex items-center justify-center flex-shrink-0 text-white text-xs font-mono font-semibold">
                         {hireInfo.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-800 truncate">{hireInfo.name}</p>
-                        <p className="text-xs text-gray-400 truncate">{hireInfo.roleTitle}</p>
+                        <p className="text-sm font-medium text-white truncate">{hireInfo.name}</p>
+                        <p className="text-xs text-white/40 font-mono truncate">{hireInfo.roleTitle}</p>
                       </div>
                     </>
                   ) : (
                     <>
-                      <div className="w-8 h-8 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <UserCircle2 className="w-4 h-4 text-gray-400" />
+                      <div className="w-7 h-7 bg-white/10 flex items-center justify-center flex-shrink-0">
+                        <UserCircle2 className="w-4 h-4 text-white/40" />
                       </div>
                       <div className="flex-1">
-                        <p className="text-sm text-gray-400">No hire selected</p>
+                        <p className="text-sm text-white/40">No hire selected</p>
                       </div>
                     </>
                   )}
-                  <ChevronDown className={`w-4 h-4 text-gray-400 flex-shrink-0 transition-transform ${hireSwitcherOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-4 h-4 text-white/40 flex-shrink-0 transition-transform ${hireSwitcherOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 <AnimatePresence>
@@ -123,43 +123,43 @@ export default function Layout() {
                       exit={{ opacity: 0, height: 0 }}
                       className="overflow-hidden"
                     >
-                      <div className="mt-1 bg-white border border-gray-100 rounded-xl shadow-lg overflow-hidden">
+                      <div className="mt-1 bg-[#161618] border border-white/10 overflow-hidden">
                         {hires.length > 0 && (
                           <div className="p-1">
                             {hires.map(h => (
                               <button
                                 key={h.id}
                                 onClick={() => handleSwitchHire(h.id)}
-                                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left transition-colors ${
-                                  h.id === activeHireId ? 'bg-green-50' : 'hover:bg-gray-50'
+                                className={`w-full flex items-center gap-2.5 px-3 py-2 text-left transition-colors ${
+                                  h.id === activeHireId ? 'bg-white/[0.08]' : 'hover:bg-white/[0.06]'
                                 }`}
                               >
-                                <div className="w-7 h-7 bg-gradient-to-br from-green-400 to-emerald-600 rounded-md flex items-center justify-center flex-shrink-0 text-white text-xs font-semibold">
+                                <div className="w-6 h-6 bg-white/10 flex items-center justify-center flex-shrink-0 text-white text-xs font-mono font-semibold">
                                   {h.info.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-sm font-medium text-gray-800 truncate">{h.info.name}</p>
-                                  <p className="text-xs text-gray-400 truncate">{h.info.roleTitle}</p>
+                                  <p className="text-sm font-medium text-white truncate">{h.info.name}</p>
+                                  <p className="text-xs text-white/40 font-mono truncate">{h.info.roleTitle}</p>
                                 </div>
                                 {h.id === activeHireId && (
-                                  <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
+                                  <CheckCircle2 className="w-4 h-4 text-indigo-400 flex-shrink-0" />
                                 )}
                                 {h.launched && h.id !== activeHireId && (
-                                  <span className="text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full flex-shrink-0">Live</span>
+                                  <span className="text-xs bg-indigo-600/20 text-indigo-300 px-1.5 py-0.5 font-mono-label flex-shrink-0">Live</span>
                                 )}
                               </button>
                             ))}
                           </div>
                         )}
-                        <div className="border-t border-gray-100 p-1">
+                        <div className="border-t border-white/[0.06] p-1">
                           <button
                             onClick={handleAddNewHire}
-                            className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left hover:bg-green-50 transition-colors text-green-700"
+                            className="w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-white/[0.06] transition-colors"
                           >
-                            <div className="w-7 h-7 bg-green-100 rounded-md flex items-center justify-center flex-shrink-0">
-                              <Plus className="w-3.5 h-3.5 text-green-600" />
+                            <div className="w-6 h-6 bg-white/10 flex items-center justify-center flex-shrink-0">
+                              <Plus className="w-3.5 h-3.5 text-white/60" />
                             </div>
-                            <span className="text-sm font-medium">Add New Hire</span>
+                            <span className="text-sm font-medium text-white/60">Add New Hire</span>
                           </button>
                         </div>
                       </div>
@@ -172,7 +172,7 @@ export default function Layout() {
         </AnimatePresence>
 
         {/* Navigation */}
-        <nav className="flex-1 px-2 py-3 space-y-1 overflow-y-auto overflow-x-hidden">
+        <nav className="flex-1 px-2 py-3 space-y-0.5 overflow-y-auto overflow-x-hidden">
           <AnimatePresence mode="wait" initial={false}>
             {roadmapGenerated ? (
               <motion.div
@@ -185,9 +185,9 @@ export default function Layout() {
               >
                 {!navCollapsed && (
                   <div className="flex items-center justify-between px-2 mb-2">
-                    <p className="text-gray-400 text-xs uppercase tracking-wider">Manage Hire</p>
+                    <p className="font-mono-label text-white/30">Manage Hire</p>
                     {launched && (
-                      <span className="flex items-center gap-1 text-xs text-green-600 bg-green-50 px-1.5 py-0.5 rounded-full">
+                      <span className="flex items-center gap-1 font-mono-label text-indigo-400 bg-indigo-600/10 px-1.5 py-0.5">
                         <CheckCircle2 className="w-3 h-3" /> Live
                       </span>
                     )}
@@ -202,21 +202,22 @@ export default function Layout() {
                     end={end}
                     title={navCollapsed ? label : undefined}
                     className={({ isActive }) =>
-                      `flex items-center gap-3 rounded-xl transition-all group ${
-                        navCollapsed ? 'justify-center px-0 py-2.5' : 'px-3 py-2.5'
+                      `flex items-center gap-3 transition-all group relative ${
+                        navCollapsed ? 'justify-center px-0 py-2.5' : 'px-3 py-2'
                       } ${
                         isActive
-                          ? 'bg-green-50 text-green-700 shadow-sm'
-                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
+                          ? 'bg-white/[0.08] text-white'
+                          : 'text-white/50 hover:bg-white/[0.05] hover:text-white/80'
                       }`
                     }
                   >
                     {({ isActive }) => (
                       <>
-                        <div className={`rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
-                          navCollapsed ? 'w-9 h-9' : 'w-8 h-8'
+                        {isActive && <span className="absolute left-0 top-0 bottom-0 w-0.5 bg-indigo-500" />}
+                        <div className={`flex items-center justify-center flex-shrink-0 transition-colors ${
+                          navCollapsed ? 'w-9 h-9' : 'w-7 h-7'
                         } ${
-                          isActive ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-500 group-hover:bg-gray-200'
+                          isActive ? 'text-white' : 'text-white/40 group-hover:text-white/60'
                         }`}>
                           <Icon className="w-4 h-4" />
                         </div>
@@ -229,12 +230,12 @@ export default function Layout() {
                               transition={{ duration: 0.15 }}
                               className="flex-1 min-w-0 overflow-hidden"
                             >
-                              <p className={`text-sm font-medium truncate ${isActive ? 'text-green-700' : ''}`}>{label}</p>
-                              <p className={`text-xs truncate ${isActive ? 'text-green-500' : 'text-gray-400'}`}>{sublabel}</p>
+                              <p className={`text-sm font-medium truncate ${isActive ? 'text-gray-900' : ''}`}>{label}</p>
+                              <p className={`text-xs truncate ${isActive ? 'text-gray-700' : 'text-gray-400'}`}>{sublabel}</p>
                             </motion.div>
                           )}
                         </AnimatePresence>
-                        {!navCollapsed && isActive && <ChevronRight className="w-4 h-4 text-green-500 flex-shrink-0" />}
+                        {!navCollapsed && isActive && <ChevronRight className="w-4 h-4 text-gray-700 flex-shrink-0" />}
                       </>
                     )}
                   </NavLink>
@@ -249,21 +250,21 @@ export default function Layout() {
                       exit={{ opacity: 0, height: 0 }}
                       className="overflow-hidden"
                     >
-                      <div className="mt-3 pt-3 border-t border-gray-100">
-                        <p className="text-gray-400 text-xs px-2 mb-2 uppercase tracking-wider">Plan Status</p>
-                        <div className="px-2 space-y-2">
+                      <div className="mt-3 pt-3 border-t border-white/[0.06]">
+                        <p className="font-mono-label text-white/25 px-2 mb-2">Plan Status</p>
+                        <div className="px-2 space-y-1.5">
                           <div className="flex items-center justify-between">
-                            <span className="text-xs text-gray-500">Tasks</span>
-                            <span className="text-xs font-medium text-gray-700 px-1.5">{tasks.length}</span>
+                            <span className="text-xs text-white/40">Tasks</span>
+                            <span className="text-xs font-mono font-medium text-white/60">{tasks.length}</span>
                           </div>
                           <div className="flex items-center justify-between">
-                            <span className="text-xs text-gray-500">Hires</span>
-                            <span className="text-xs font-medium text-gray-700 px-1.5">{hires.length}</span>
+                            <span className="text-xs text-white/40">Hires</span>
+                            <span className="text-xs font-mono font-medium text-white/60">{hires.length}</span>
                           </div>
                           {docDebtCount > 0 && (
                             <div className="flex items-center justify-between">
-                              <span className="text-xs text-amber-600">Doc Debt</span>
-                              <span className="bg-amber-100 text-amber-700 text-xs font-semibold px-1.5 py-0.5 rounded-full">{docDebtCount}</span>
+                              <span className="text-xs text-amber-400/80">Doc Debt</span>
+                              <span className="bg-amber-500/20 text-amber-300 text-xs font-mono font-semibold px-1.5 py-0.5">{docDebtCount}</span>
                             </div>
                           )}
                         </div>
@@ -275,7 +276,7 @@ export default function Layout() {
                 {/* Collapsed doc debt badge */}
                 {navCollapsed && docDebtCount > 0 && (
                   <div className="flex justify-center pt-1">
-                    <span className="bg-amber-100 text-amber-700 text-xs font-semibold w-6 h-6 rounded-full flex items-center justify-center">
+                    <span className="bg-amber-500/20 text-amber-300 text-xs font-mono font-semibold w-6 h-6 flex items-center justify-center">
                       {docDebtCount}
                     </span>
                   </div>
@@ -291,7 +292,7 @@ export default function Layout() {
                 className="space-y-1"
               >
                 {!navCollapsed && (
-                  <p className="text-gray-400 text-xs px-2 mb-2 uppercase tracking-wider">Setup</p>
+                  <p className="font-mono-label text-white/30 px-2 mb-2">Setup</p>
                 )}
                 {setupNavItems.map(({ to, end, icon: Icon, label, sublabel }, idx) => {
                   const stepNum = idx + 1;
@@ -303,23 +304,22 @@ export default function Layout() {
                       end={end}
                       title={navCollapsed ? label : undefined}
                       className={({ isActive }) =>
-                        `flex items-center gap-3 rounded-xl transition-all group ${
-                          navCollapsed ? 'justify-center px-0 py-2.5' : 'px-3 py-2.5'
+                        `flex items-center gap-3 transition-all group relative ${
+                          navCollapsed ? 'justify-center px-0 py-2.5' : 'px-3 py-2'
                         } ${
                           isLocked
-                            ? 'opacity-40 pointer-events-none'
+                            ? 'opacity-25 pointer-events-none'
                             : isActive
-                            ? 'bg-green-50 text-green-700 shadow-sm'
-                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
+                            ? 'bg-white/[0.08] text-white'
+                            : 'text-white/50 hover:bg-white/[0.05] hover:text-white/80'
                         }`
                       }
                     >
                       {({ isActive }) => (
                         <>
-                          <div className={`rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-semibold transition-colors ${
-                            navCollapsed ? 'w-9 h-9' : 'w-8 h-8'
-                          } ${
-                            isActive ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-500 group-hover:bg-gray-200'
+                          {isActive && <span className="absolute left-0 top-0 bottom-0 w-0.5 bg-indigo-500" />}
+                          <div className={`w-5 h-5 border flex items-center justify-center flex-shrink-0 text-xs font-mono font-bold transition-colors ${
+                            isActive ? 'bg-indigo-500 border-indigo-500 text-white' : 'border-white/20 text-white/30 group-hover:border-white/40'
                           }`}>
                             {stepNum}
                           </div>
@@ -332,12 +332,11 @@ export default function Layout() {
                                 transition={{ duration: 0.15 }}
                                 className="flex-1 min-w-0 overflow-hidden"
                               >
-                                <p className={`text-sm font-medium truncate ${isActive ? 'text-green-700' : ''}`}>{label}</p>
-                                <p className={`text-xs truncate ${isActive ? 'text-green-500' : 'text-gray-400'}`}>{sublabel}</p>
+                                <p className={`text-sm font-medium truncate ${isActive ? 'text-white' : ''}`}>{label}</p>
+                                <p className={`text-xs truncate font-mono-label ${isActive ? 'text-white/40' : 'text-white/20'}`}>{sublabel}</p>
                               </motion.div>
                             )}
                           </AnimatePresence>
-                          {!navCollapsed && isActive && <ChevronRight className="w-4 h-4 text-green-500 flex-shrink-0" />}
                         </>
                       )}
                     </NavLink>
@@ -349,11 +348,11 @@ export default function Layout() {
         </nav>
 
         {/* Footer */}
-        <div className="px-2 py-3 border-t border-gray-100 flex-shrink-0 space-y-1">
+        <div className="px-2 py-2 border-t border-white/[0.06] flex-shrink-0 space-y-0.5">
           {/* Collapse toggle */}
           <button
             onClick={() => setNavCollapsed(v => !v)}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-gray-50 transition-colors text-gray-400 hover:text-gray-600"
+            className="w-full flex items-center gap-3 px-3 py-2 hover:bg-white/[0.06] transition-colors text-white/30 hover:text-white/60"
             title={navCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             {navCollapsed
@@ -368,9 +367,9 @@ export default function Layout() {
           </button>
 
           {/* Profile */}
-          <div onClick={() => setSettingsOpen(true)} className={`flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-gray-50 cursor-pointer transition-colors ${navCollapsed ? 'justify-center' : ''}`}>
-            <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
-              <span className="text-white text-xs font-semibold">{managerProfile?.name?.charAt(0).toUpperCase() || 'M'}</span>
+          <div onClick={() => setSettingsOpen(true)} className={`flex items-center gap-3 px-3 py-2 hover:bg-white/[0.06] cursor-pointer transition-colors ${navCollapsed ? 'justify-center' : ''}`}>
+            <div className="w-6 h-6 bg-white/10 border border-white/10 flex items-center justify-center flex-shrink-0">
+              <span className="text-white/80 text-xs font-mono font-semibold">{managerProfile?.name?.charAt(0).toUpperCase() || 'M'}</span>
             </div>
             <AnimatePresence initial={false}>
               {!navCollapsed && (
@@ -382,10 +381,10 @@ export default function Layout() {
                   className="flex-1 min-w-0 overflow-hidden flex items-center gap-2"
                 >
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-800 truncate">{managerProfile?.name || 'Loading...'}</p>
-                    <p className="text-xs text-gray-400 truncate">{managerProfile?.role || 'Manager'}</p>
+                    <p className="text-sm font-medium text-white/80 truncate">{managerProfile?.name || 'Loading...'}</p>
+                    <p className="text-xs text-white/30 font-mono truncate">{managerProfile?.role || 'Manager'}</p>
                   </div>
-                  <Settings className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                  <Settings className="w-3.5 h-3.5 text-white/30 flex-shrink-0" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -396,9 +395,9 @@ export default function Layout() {
       {/* ── Main ── */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar */}
-        <header className="bg-white border-b border-gray-100 px-6 py-3 flex items-center gap-4 flex-shrink-0">
+        <header className="bg-white border-b border-gray-100 px-4 py-3 flex items-center gap-4 flex-shrink-0">
           <div className="flex-1 flex items-center gap-3 max-w-md">
-            <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 flex-1">
+            <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-sm px-3 py-2 flex-1">
               <Search className="w-4 h-4 text-gray-400" />
               <input
                 type="text"
@@ -408,19 +407,19 @@ export default function Layout() {
             </div>
           </div>
           <div className="flex items-center gap-2 ml-auto">
-            <button onClick={() => navigate('/notifications')} className="relative p-2 rounded-lg hover:bg-gray-50 transition-colors">
+            <button onClick={() => navigate('/notifications')} className="relative p-2 rounded-sm hover:bg-gray-50 transition-colors">
               <Bell className="w-5 h-5 text-gray-500" />
               {docDebtCount > 0 && (
-                <span className="absolute top-1 right-1 w-2 h-2 bg-amber-500 rounded-full" />
+                <span className="absolute top-1 right-1 w-2 h-2 bg-amber-500 rounded-sm" />
               )}
             </button>
-            <button onClick={() => navigate('/help')} className="p-2 rounded-lg hover:bg-gray-50 transition-colors">
+            <button onClick={() => navigate('/help')} className="p-2 rounded-sm hover:bg-gray-50 transition-colors">
               <HelpCircle className="w-5 h-5 text-gray-500" />
             </button>
             <div className="w-px h-5 bg-gray-200" />
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-green-50 border border-green-100 rounded-lg">
-              <Building2 className="w-4 h-4 text-green-600 flex-shrink-0" />
-              <span className="text-sm font-medium text-green-700">Product Management Company</span>
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-sm">
+              <Building2 className="w-4 h-4 text-gray-900 flex-shrink-0" />
+              <span className="text-sm font-medium text-gray-900">Product Management Company</span>
             </div>
           </div>
         </header>

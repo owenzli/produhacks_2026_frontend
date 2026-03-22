@@ -61,20 +61,20 @@ function ContactCard({ contact, onUpdate, onRemove }: ContactCardProps) {
 
   if (editing) {
     return (
-      <motion.div layout className="bg-white border-2 border-green-300 rounded-2xl p-5 shadow-md">
+      <motion.div layout className="bg-white border-2 border-gray-300 rounded-sm p-5 shadow-md">
         <div className="flex items-center gap-3 mb-4">
-          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${draft.avatarColor} flex items-center justify-center flex-shrink-0`}>
+          <div className={`w-12 h-12 rounded-sm bg-gradient-to-br ${draft.avatarColor} flex items-center justify-center flex-shrink-0`}>
             <span className="text-white font-semibold">{initials(draft.name || '?')}</span>
           </div>
           <div className="flex-1 grid grid-cols-2 gap-2">
             <input value={draft.name} onChange={e => setDraft(d => ({ ...d, name: e.target.value }))}
               placeholder="Full name"
-              className="col-span-2 border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-200" />
+              className="col-span-2 border border-gray-200 rounded-sm px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-200" />
             <input value={draft.role} onChange={e => setDraft(d => ({ ...d, role: e.target.value }))}
               placeholder="Role / Title"
-              className="border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-200" />
+              className="border border-gray-200 rounded-sm px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-200" />
             <select value={draft.department} onChange={e => setDraft(d => ({ ...d, department: e.target.value }))}
-              className="border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-200 bg-white">
+              className="border border-gray-200 rounded-sm px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 bg-white">
               {DEPARTMENTS.map(dep => <option key={dep}>{dep}</option>)}
             </select>
           </div>
@@ -83,17 +83,17 @@ function ContactCard({ contact, onUpdate, onRemove }: ContactCardProps) {
         <div className="grid grid-cols-2 gap-2 mb-3">
           <input value={draft.email} onChange={e => setDraft(d => ({ ...d, email: e.target.value }))}
             placeholder="email@company.com"
-            className="border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-200" />
+            className="border border-gray-200 rounded-sm px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-200" />
           <input value={draft.scheduleLink} onChange={e => setDraft(d => ({ ...d, scheduleLink: e.target.value }))}
             placeholder="https://calendly.com/..."
-            className="border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-200" />
+            className="border border-gray-200 rounded-sm px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-200" />
         </div>
 
         <div className="mb-3">
           <p className="text-xs text-gray-500 mb-1.5 font-medium">Responsibilities</p>
           <div className="flex flex-wrap gap-1.5 mb-2">
             {draft.responsibilities.map((r, i) => (
-              <span key={i} className="flex items-center gap-1 bg-green-50 border border-green-100 text-green-700 text-xs px-2 py-1 rounded-full">
+              <span key={i} className="flex items-center gap-1 bg-gray-50 border border-gray-200 text-gray-900 text-xs px-2 py-1 rounded-sm">
                 {r}
                 <button onClick={() => removeResp(i)} className="hover:text-red-500 transition-colors">
                   <X className="w-2.5 h-2.5" />
@@ -105,9 +105,9 @@ function ContactCard({ contact, onUpdate, onRemove }: ContactCardProps) {
             <input value={newResp} onChange={e => setNewResp(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && addResp()}
               placeholder="Add responsibility…"
-              className="flex-1 border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-200" />
-            <button onClick={addResp} className="p-1.5 bg-green-100 rounded-lg hover:bg-green-200 transition-colors">
-              <Plus className="w-4 h-4 text-green-700" />
+              className="flex-1 border border-gray-200 rounded-sm px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-200" />
+            <button onClick={addResp} className="p-1.5 bg-gray-100 rounded-sm hover:bg-gray-200 transition-colors">
+              <Plus className="w-4 h-4 text-gray-900" />
             </button>
           </div>
         </div>
@@ -118,7 +118,7 @@ function ContactCard({ contact, onUpdate, onRemove }: ContactCardProps) {
           <div className="flex gap-1.5 flex-wrap">
             {AVATAR_COLORS.map(c => (
               <button key={c} onClick={() => setDraft(d => ({ ...d, avatarColor: c }))}
-                className={`w-6 h-6 rounded-full bg-gradient-to-br ${c} flex items-center justify-center border-2 transition-all ${draft.avatarColor === c ? 'border-gray-800 scale-110' : 'border-transparent'}`}>
+                className={`w-6 h-6 rounded-sm bg-gradient-to-br ${c} flex items-center justify-center border-2 transition-all ${draft.avatarColor === c ? 'border-gray-800 scale-110' : 'border-transparent'}`}>
                 {draft.avatarColor === c && <CheckCircle2 className="w-3 h-3 text-white" />}
               </button>
             ))}
@@ -126,10 +126,10 @@ function ContactCard({ contact, onUpdate, onRemove }: ContactCardProps) {
         </div>
 
         <div className="flex gap-2">
-          <button onClick={cancel} className="flex items-center gap-1.5 text-gray-500 hover:text-gray-700 border border-gray-200 px-4 py-2 rounded-xl text-sm transition-colors hover:bg-gray-50">
+          <button onClick={cancel} className="flex items-center gap-1.5 text-gray-500 hover:text-gray-700 border border-gray-200 px-4 py-2 rounded-sm text-sm transition-colors hover:bg-gray-50">
             <X className="w-3.5 h-3.5" /> Cancel
           </button>
-          <button onClick={save} className="flex items-center gap-1.5 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-xl text-sm transition-colors">
+          <button onClick={save} className="flex items-center gap-1.5 bg-gray-900 hover:bg-black text-white px-4 py-2 rounded-sm text-sm transition-colors">
             <Save className="w-3.5 h-3.5" /> Save
           </button>
         </div>
@@ -138,23 +138,23 @@ function ContactCard({ contact, onUpdate, onRemove }: ContactCardProps) {
   }
 
   return (
-    <motion.div layout className="bg-white border border-gray-100 rounded-2xl p-4 hover:border-green-200 hover:shadow-sm transition-all group">
+    <motion.div layout className="bg-white border border-gray-100 rounded-sm p-4 hover:border-gray-200 hover:shadow-sm transition-all group">
       <div className="flex items-start gap-3">
-        <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${contact.avatarColor} flex items-center justify-center flex-shrink-0 shadow-sm`}>
+        <div className={`w-11 h-11 rounded-sm bg-gradient-to-br ${contact.avatarColor} flex items-center justify-center flex-shrink-0 shadow-sm`}>
           <span className="text-white font-semibold text-sm">{initials(contact.name)}</span>
         </div>
         <div className="flex-1 min-w-0">
           <p className="font-medium text-gray-900">{contact.name}</p>
           <p className="text-sm text-gray-500">{contact.role}</p>
-          <span className="inline-block mt-1 text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">{contact.department}</span>
+          <span className="inline-block mt-1 text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-sm">{contact.department}</span>
         </div>
         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
           <button onClick={() => { setDraft(contact); setEditing(true); }}
-            className="p-1.5 hover:bg-green-50 rounded-lg transition-colors">
-            <Edit3 className="w-3.5 h-3.5 text-gray-400 hover:text-green-600" />
+            className="p-1.5 hover:bg-gray-50 rounded-sm transition-colors">
+            <Edit3 className="w-3.5 h-3.5 text-gray-400 hover:text-gray-900" />
           </button>
           <button onClick={() => onRemove(contact.id)}
-            className="p-1.5 hover:bg-red-50 rounded-lg transition-colors">
+            className="p-1.5 hover:bg-red-50 rounded-sm transition-colors">
             <Trash2 className="w-3.5 h-3.5 text-gray-400 hover:text-red-500" />
           </button>
         </div>
@@ -163,7 +163,7 @@ function ContactCard({ contact, onUpdate, onRemove }: ContactCardProps) {
       {contact.responsibilities.length > 0 && (
         <div className="mt-3 flex flex-wrap gap-1.5">
           {contact.responsibilities.map((r, i) => (
-            <span key={i} className="text-xs bg-green-50 text-green-700 border border-green-100 px-2 py-0.5 rounded-full">
+            <span key={i} className="text-xs bg-gray-50 text-gray-900 border border-gray-200 px-2 py-0.5 rounded-sm">
               {r}
             </span>
           ))}
@@ -173,14 +173,14 @@ function ContactCard({ contact, onUpdate, onRemove }: ContactCardProps) {
       <div className="mt-3 flex items-center gap-3 pt-3 border-t border-gray-50 flex-wrap">
         {contact.email && (
           <a href={`mailto:${contact.email}`}
-            className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-green-600 transition-colors">
+            className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-900 transition-colors">
             <Mail className="w-3 h-3" />
             {contact.email}
           </a>
         )}
         {contact.scheduleLink && (
           <a href={contact.scheduleLink} target="_blank" rel="noreferrer"
-            className="flex items-center gap-1.5 text-xs bg-green-600 text-white px-2.5 py-1 rounded-lg hover:bg-green-700 transition-colors">
+            className="flex items-center gap-1.5 text-xs bg-gray-900 text-white px-2.5 py-1 rounded-sm hover:bg-black transition-colors">
             <Calendar className="w-3 h-3" />
             Schedule 1:1
           </a>
@@ -220,7 +220,7 @@ function AddContactForm({ type, onAdd, onClose }: {
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-      className="bg-white border-2 border-dashed border-green-300 rounded-2xl p-5">
+      className="bg-white border-2 border-dashed border-gray-300 rounded-sm p-5">
       <div className="flex items-center justify-between mb-4">
         <p className="font-medium text-gray-800 text-sm">
           {type === 'onboarding' ? '+ Add Onboarding Contact' : '+ Add Collaborator'}
@@ -232,23 +232,23 @@ function AddContactForm({ type, onAdd, onClose }: {
 
       <div className="grid grid-cols-2 gap-2 mb-3">
         <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="Full name *"
-          className="col-span-2 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-200" />
+          className="col-span-2 border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-200" />
         <input value={form.role} onChange={e => setForm(f => ({ ...f, role: e.target.value }))} placeholder="Role / Title *"
-          className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-200" />
+          className="border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-200" />
         <select value={form.department} onChange={e => setForm(f => ({ ...f, department: e.target.value }))}
-          className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-200 bg-white">
+          className="border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 bg-white">
           {DEPARTMENTS.map(d => <option key={d}>{d}</option>)}
         </select>
         <input value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} placeholder="email@company.com"
-          className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-200" />
+          className="border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-200" />
         <input value={form.scheduleLink} onChange={e => setForm(f => ({ ...f, scheduleLink: e.target.value }))} placeholder="Calendly / booking link"
-          className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-200" />
+          className="border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-200" />
       </div>
 
       <div className="mb-3">
         <div className="flex flex-wrap gap-1.5 mb-2">
           {form.responsibilities.map((r, i) => (
-            <span key={i} className="flex items-center gap-1 bg-green-50 text-green-700 text-xs px-2 py-0.5 rounded-full border border-green-100">
+            <span key={i} className="flex items-center gap-1 bg-gray-50 text-gray-900 text-xs px-2 py-0.5 rounded-sm border border-gray-200">
               {r}
               <button onClick={() => setForm(f => ({ ...f, responsibilities: f.responsibilities.filter((_, idx) => idx !== i) }))}>
                 <X className="w-2.5 h-2.5" />
@@ -259,9 +259,9 @@ function AddContactForm({ type, onAdd, onClose }: {
         <div className="flex gap-2">
           <input value={newResp} onChange={e => setNewResp(e.target.value)} onKeyDown={e => e.key === 'Enter' && addResp()}
             placeholder="Add a responsibility (e.g. Code reviews)…"
-            className="flex-1 border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-200" />
-          <button onClick={addResp} className="p-1.5 bg-green-100 rounded-lg hover:bg-green-200 transition-colors">
-            <Plus className="w-4 h-4 text-green-700" />
+            className="flex-1 border border-gray-200 rounded-sm px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-200" />
+          <button onClick={addResp} className="p-1.5 bg-gray-100 rounded-sm hover:bg-gray-200 transition-colors">
+            <Plus className="w-4 h-4 text-gray-900" />
           </button>
         </div>
       </div>
@@ -270,13 +270,13 @@ function AddContactForm({ type, onAdd, onClose }: {
         <div className="flex gap-1.5">
           {AVATAR_COLORS.slice(0, 6).map(c => (
             <button key={c} onClick={() => setForm(f => ({ ...f, avatarColor: c }))}
-              className={`w-5 h-5 rounded-full bg-gradient-to-br ${c} border-2 transition-all ${form.avatarColor === c ? 'border-gray-700 scale-125' : 'border-transparent'}`} />
+              className={`w-5 h-5 rounded-sm bg-gradient-to-br ${c} border-2 transition-all ${form.avatarColor === c ? 'border-gray-700 scale-125' : 'border-transparent'}`} />
           ))}
         </div>
         <div className="flex gap-2">
-          <button onClick={onClose} className="text-gray-500 text-sm px-3 py-1.5 rounded-lg hover:bg-gray-50 transition-colors">Cancel</button>
+          <button onClick={onClose} className="text-gray-500 text-sm px-3 py-1.5 rounded-sm hover:bg-gray-50 transition-colors">Cancel</button>
           <button onClick={submit} disabled={!form.name.trim() || !form.role.trim()}
-            className="bg-green-600 hover:bg-green-700 disabled:opacity-40 text-white text-sm px-4 py-1.5 rounded-lg transition-colors">
+            className="bg-gray-900 hover:bg-black disabled:opacity-40 text-white text-sm px-4 py-1.5 rounded-sm transition-colors">
             Add Contact
           </button>
         </div>
@@ -295,10 +295,10 @@ export default function TeamSetup() {
   return (
     <div className="space-y-8">
       {/* Intro */}
-      <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl border border-green-100 p-5">
+      <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-sm border border-gray-200 p-5">
         <div className="flex items-start gap-4">
-          <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
-            <Users className="w-5 h-5 text-green-700" />
+          <div className="w-10 h-10 bg-gray-100 rounded-sm flex items-center justify-center flex-shrink-0">
+            <Users className="w-5 h-5 text-gray-900" />
           </div>
           <div>
             <h3 className="text-gray-900 font-semibold">Team Contacts for {hireInfo?.name ?? 'New Hire'}</h3>
@@ -314,18 +314,18 @@ export default function TeamSetup() {
       <div>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-blue-50 rounded-sm flex items-center justify-center">
               <UserCheck className="w-4 h-4 text-blue-600" />
             </div>
             <div>
               <h3 className="text-gray-900">Onboarding Team</h3>
               <p className="text-gray-500 text-xs mt-0.5">People who grant access, lead setup, or guide the new hire directly</p>
             </div>
-            <span className="ml-1 bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full font-medium">{onboardingContacts.length}</span>
+            <span className="ml-1 bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-sm font-medium">{onboardingContacts.length}</span>
           </div>
           <button
             onClick={() => setAddingType(addingType === 'onboarding' ? null : 'onboarding')}
-            className="flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-100 px-3 py-1.5 rounded-xl transition-colors"
+            className="flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-100 px-3 py-1.5 rounded-sm transition-colors"
           >
             <Plus className="w-4 h-4" /> Add Person
           </button>
@@ -339,10 +339,10 @@ export default function TeamSetup() {
           </AnimatePresence>
 
           {onboardingContacts.length === 0 && addingType !== 'onboarding' ? (
-            <div className="text-center py-8 text-gray-400 border-2 border-dashed border-gray-100 rounded-2xl">
+            <div className="text-center py-5 text-gray-400 border-2 border-dashed border-gray-100 rounded-sm">
               <UserCheck className="w-8 h-8 mx-auto mb-2 text-gray-200" />
               <p className="text-sm">No onboarding contacts yet</p>
-              <button onClick={() => setAddingType('onboarding')} className="text-xs text-green-600 hover:underline mt-1">Add the first one</button>
+              <button onClick={() => setAddingType('onboarding')} className="text-xs text-gray-900 hover:underline mt-1">Add the first one</button>
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-3">
@@ -358,18 +358,18 @@ export default function TeamSetup() {
       <div>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-purple-50 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-purple-50 rounded-sm flex items-center justify-center">
               <Network className="w-4 h-4 text-purple-600" />
             </div>
             <div>
               <h3 className="text-gray-900">Team Rolodex</h3>
               <p className="text-gray-500 text-xs mt-0.5">Close collaborators & cross-functional partners the new hire will work with</p>
             </div>
-            <span className="ml-1 bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded-full font-medium">{collaborators.length}</span>
+            <span className="ml-1 bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded-sm font-medium">{collaborators.length}</span>
           </div>
           <button
             onClick={() => setAddingType(addingType === 'collaborator' ? null : 'collaborator')}
-            className="flex items-center gap-1.5 text-sm text-purple-600 hover:text-purple-700 bg-purple-50 hover:bg-purple-100 border border-purple-100 px-3 py-1.5 rounded-xl transition-colors"
+            className="flex items-center gap-1.5 text-sm text-purple-600 hover:text-purple-700 bg-purple-50 hover:bg-purple-100 border border-purple-100 px-3 py-1.5 rounded-sm transition-colors"
           >
             <Plus className="w-4 h-4" /> Add Person
           </button>
@@ -383,10 +383,10 @@ export default function TeamSetup() {
           </AnimatePresence>
 
           {collaborators.length === 0 && addingType !== 'collaborator' ? (
-            <div className="text-center py-8 text-gray-400 border-2 border-dashed border-gray-100 rounded-2xl">
+            <div className="text-center py-5 text-gray-400 border-2 border-dashed border-gray-100 rounded-sm">
               <Network className="w-8 h-8 mx-auto mb-2 text-gray-200" />
               <p className="text-sm">No collaborators added yet</p>
-              <button onClick={() => setAddingType('collaborator')} className="text-xs text-green-600 hover:underline mt-1">Add collaborators</button>
+              <button onClick={() => setAddingType('collaborator')} className="text-xs text-gray-900 hover:underline mt-1">Add collaborators</button>
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-3">

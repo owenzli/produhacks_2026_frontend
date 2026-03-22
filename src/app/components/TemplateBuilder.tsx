@@ -17,7 +17,7 @@ const COLORS = [
   'from-purple-500 to-violet-600',
   'from-amber-500 to-orange-600',
   'from-blue-500 to-indigo-600',
-  'from-teal-500 to-emerald-600',
+  'from-teal-500 to-gray-900',
 ];
 
 export default function TemplateBuilder() {
@@ -69,7 +69,7 @@ export default function TemplateBuilder() {
           <div className="flex items-center gap-4">
             <button
               onClick={() => navigate(-1)}
-              className="w-10 h-10 bg-white border border-gray-200 rounded-xl flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+              className="w-10 h-10 bg-white border border-gray-200 rounded-sm flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-colors"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
@@ -81,7 +81,7 @@ export default function TemplateBuilder() {
           <button
             onClick={handleSave}
             disabled={!label.trim() || tasks.length === 0}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white px-5 py-2.5 rounded-xl transition-colors shadow-sm"
+            className="flex items-center gap-2 bg-gray-900 hover:bg-black disabled:opacity-50 text-white px-5 py-2.5 rounded-sm transition-colors shadow-sm"
           >
             <Save className="w-4 h-4" /> Save Template
           </button>
@@ -89,7 +89,7 @@ export default function TemplateBuilder() {
 
         <div className="grid grid-cols-3 gap-6">
           <div className="col-span-1 space-y-6">
-            <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm">
+            <div className="bg-white p-5 rounded-sm border border-gray-200 shadow-sm">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Template Identity</h2>
               
               <div className="space-y-4">
@@ -100,7 +100,7 @@ export default function TemplateBuilder() {
                     value={label}
                     onChange={e => setLabel(e.target.value)}
                     placeholder="e.g. Motion Designer"
-                    className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
+                    className="w-full border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
                   />
                 </div>
                 <div>
@@ -108,7 +108,7 @@ export default function TemplateBuilder() {
                   <select
                     value={department}
                     onChange={e => setDepartment(e.target.value)}
-                    className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 bg-white"
+                    className="w-full border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 bg-white"
                   >
                     {DEPARTMENTS.map(d => <option key={d} value={d}>{d}</option>)}
                   </select>
@@ -122,7 +122,7 @@ export default function TemplateBuilder() {
                         <button
                           key={i.name}
                           onClick={() => setIconName(i.name)}
-                          className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-all ${iconName === i.name ? 'border-green-500 bg-green-50 text-green-600' : 'border-gray-200 text-gray-500 hover:bg-gray-50'}`}
+                          className={`w-10 h-10 rounded-sm flex items-center justify-center border transition-all ${iconName === i.name ? 'border-green-500 bg-gray-50 text-gray-900' : 'border-gray-200 text-gray-500 hover:bg-gray-50'}`}
                         >
                           <Icon className="w-5 h-5" />
                         </button>
@@ -134,7 +134,7 @@ export default function TemplateBuilder() {
                       <button
                         key={c}
                         onClick={() => setColor(c)}
-                        className={`w-8 h-8 rounded-full bg-gradient-to-br ${c} border-2 transition-transform ${color === c ? 'border-gray-900 scale-110' : 'border-transparent hover:scale-105'}`}
+                        className={`w-8 h-8 rounded-sm bg-gradient-to-br ${c} border-2 transition-transform ${color === c ? 'border-gray-900 scale-110' : 'border-transparent hover:scale-105'}`}
                       />
                     ))}
                   </div>
@@ -142,10 +142,10 @@ export default function TemplateBuilder() {
               </div>
             </div>
 
-            <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm">
+            <div className="bg-white p-5 rounded-sm border border-gray-200 shadow-sm">
               <h3 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wider">Preview Card</h3>
-              <div className={`flex items-center gap-4 p-4 rounded-xl border border-gray-100 shadow-sm`}>
-                <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center flex-shrink-0 shadow-sm`}>
+              <div className={`flex items-center gap-4 p-4 rounded-sm border border-gray-100 shadow-sm`}>
+                <div className={`w-11 h-11 rounded-sm bg-gradient-to-br ${color} flex items-center justify-center flex-shrink-0 shadow-sm`}>
                   <SelectedIcon className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -157,10 +157,10 @@ export default function TemplateBuilder() {
           </div>
 
           <div className="col-span-2 space-y-6">
-            <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+            <div className="bg-white p-4 rounded-sm border border-gray-200 shadow-sm">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Onboarding Tasks</h2>
               
-              <div className="flex gap-3 items-end mb-6 p-4 bg-gray-50 rounded-xl border border-gray-100">
+              <div className="flex gap-3 items-end mb-6 p-4 bg-gray-50 rounded-sm border border-gray-100">
                 <div className="flex-1">
                   <label className="block text-xs font-medium text-gray-600 mb-1">Task Title</label>
                   <input
@@ -169,7 +169,7 @@ export default function TemplateBuilder() {
                     onChange={e => setNewTaskTitle(e.target.value)}
                     onKeyDown={e => e.key === 'Enter' && handleAddTask()}
                     placeholder="e.g. Access Figma Workspace"
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
+                    className="w-full border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
                   />
                 </div>
                 <div className="w-32">
@@ -177,7 +177,7 @@ export default function TemplateBuilder() {
                   <select
                     value={newTaskCategory}
                     onChange={e => setNewTaskCategory(e.target.value)}
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 bg-white"
+                    className="w-full border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 bg-white"
                   >
                     <option>Onboarding</option>
                     <option>Setup</option>
@@ -192,7 +192,7 @@ export default function TemplateBuilder() {
                   <select
                     value={newTaskWeek}
                     onChange={e => setNewTaskWeek(Number(e.target.value) as Week)}
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 bg-white"
+                    className="w-full border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 bg-white"
                   >
                     <option value={1}>Week 1</option>
                     <option value={2}>Week 2</option>
@@ -205,7 +205,7 @@ export default function TemplateBuilder() {
                     type="checkbox"
                     checked={newTaskIsTech}
                     onChange={e => setNewTaskIsTech(e.target.checked)}
-                    className="w-4 h-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                    className="w-4 h-4 text-gray-900 focus:ring-gray-1000 border-gray-300 rounded"
                     id="tech-setup"
                   />
                   <label htmlFor="tech-setup" className="text-xs font-medium text-gray-600 cursor-pointer">Tech Setup?</label>
@@ -213,14 +213,14 @@ export default function TemplateBuilder() {
                 <button
                   onClick={handleAddTask}
                   disabled={!newTaskTitle.trim()}
-                  className="bg-gray-900 hover:bg-black disabled:opacity-50 text-white rounded-lg p-2 transition-colors focus:ring-2 focus:ring-green-400"
+                  className="bg-gray-900 hover:bg-black disabled:opacity-50 text-white rounded-sm p-2 transition-colors focus:ring-2 focus:ring-green-400"
                 >
                   <Plus className="w-5 h-5" />
                 </button>
               </div>
 
               {tasks.length === 0 ? (
-                <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-xl">
+                <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-sm">
                   <Wand2 className="w-8 h-8 text-gray-300 mx-auto mb-2" />
                   <p className="text-gray-500 font-medium">No tasks added yet</p>
                   <p className="text-sm text-gray-400 mt-1">Add tasks above to define this role's roadmap</p>
@@ -235,7 +235,7 @@ export default function TemplateBuilder() {
                         <h4 className="text-sm font-semibold text-gray-900 mb-2">Week {week}</h4>
                         <ul className="space-y-2">
                           {weekTasks.map((t, idx) => (
-                            <li key={idx} className="flex items-center justify-between p-3 bg-gray-50 border border-gray-100 rounded-xl group">
+                            <li key={idx} className="flex items-center justify-between p-3 bg-gray-50 border border-gray-100 rounded-sm group">
                               <div className="flex items-center gap-3">
                                 <CheckCircle2 className="w-4 h-4 text-gray-400" />
                                 <div>
@@ -250,7 +250,7 @@ export default function TemplateBuilder() {
                               </div>
                               <button
                                 onClick={() => setTasks(tasks.filter(task => task !== t))}
-                                className="opacity-0 group-hover:opacity-100 p-2 hover:bg-red-50 hover:text-red-600 text-gray-400 rounded-lg transition-all"
+                                className="opacity-0 group-hover:opacity-100 p-2 hover:bg-red-50 hover:text-red-600 text-gray-400 rounded-sm transition-all"
                               >
                                 <Trash2 className="w-4 h-4" />
                               </button>
