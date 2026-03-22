@@ -69,8 +69,8 @@ export default function ManagerOnboarding() {
           <div className="w-16 h-16 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-sm">
             <Shield className="w-8 h-8" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to your Workspace</h1>
-          <p className="text-gray-500">Let's set up your manager profile and team primitives.</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to <span className="text-green-600">LaunchPath</span></h1>
+          <p className="text-gray-500">Let's set up your manager profile so LaunchPath can generate personalized onboarding plans for your team.</p>
         </div>
 
         {/* Step indicator */}
