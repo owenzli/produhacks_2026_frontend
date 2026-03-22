@@ -140,7 +140,7 @@ export default function OnboardingWizard() {
   }
 
   return (
-    <div className="min-h-full bg-gradient-to-br from-gray-50/40 via-white to-gray-50/30 p-6">
+    <div className="min-h-full bg-grid p-6">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
           <div className="flex items-start justify-between mb-5">

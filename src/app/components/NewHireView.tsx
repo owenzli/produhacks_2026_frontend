@@ -65,6 +65,9 @@ function TaskItem({ task, onToggle }: { task: Task; onToggle: () => void }) {
             </span>
           )}
         </div>
+        {task.description && (
+          <p className="text-xs font-mono text-gray-400 mt-1 leading-relaxed">{task.description}</p>
+        )}
         <div className="flex items-center gap-4 mt-1.5 flex-wrap">
           <div className="flex items-center gap-1 text-xs text-gray-400"><User className="w-3 h-3" />{task.owner}</div>
           {task.dueDate && (
@@ -180,7 +183,7 @@ export default function NewHireView() {
   }
 
   return (
-    <div className="min-h-full bg-gradient-to-br from-gray-50/30 via-white to-gray-50/20">
+    <div className="min-h-full bg-grid">
       {/* Header */}
       <div className="bg-white border-b border-gray-100 px-4 py-4">
         <div className="max-w-4xl mx-auto flex items-center gap-4">
@@ -209,41 +212,74 @@ export default function NewHireView() {
       <div className="max-w-4xl mx-auto px-4 py-4 space-y-6">
         {/* Stats row */}
         <div className="grid grid-cols-3 gap-4">
-          <div className="col-span-1 bg-white rounded-sm shadow-sm border border-gray-100 p-5 flex items-center gap-4">
-            <div className="relative flex-shrink-0">
-              <ProgressRing pct={pct} size={72} />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-sm font-semibold text-gray-800">{pct}%</span>
+
+          {/* Overall progress */}
+          <div className="col-span-1 bg-white border border-gray-100 p-5">
+            <p className="font-mono-label text-gray-400 mb-3">overall progress</p>
+            {totalCount === 0 ? (
+              <div className="flex items-center gap-2 py-1">
+                <div className="flex-1 h-1.5 bg-gray-100 rounded-sm" />
+                <span className="text-xs text-gray-400 font-mono flex-shrink-0">no tasks</span>
               </div>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-gray-800">{completedCount} of {totalCount}</p>
-              <p className="text-xs text-gray-500">tasks complete</p>
-            </div>
+            ) : (
+              <>
+                <div className="flex items-end justify-between mb-2">
+                  <span className="text-2xl font-bold text-gray-900 tracking-tight">{pct}<span className="text-sm font-normal text-gray-400 ml-0.5">%</span></span>
+                  <span className="text-xs font-mono text-gray-400">{completedCount}/{totalCount}</span>
+                </div>
+                <div className="h-1.5 bg-gray-100 rounded-sm overflow-hidden">
+                  <div
+                    className="h-full bg-gray-900 rounded-sm transition-all duration-500"
+                    style={{ width: `${pct}%` }}
+                  />
+                </div>
+                <p className="text-xs text-gray-400 mt-2">
+                  {completedCount === 0
+                    ? 'Ready to start — tick your first task'
+                    : completedCount === totalCount
+                    ? '🎉 All tasks complete!'
+                    : `${totalCount - completedCount} remaining`}
+                </p>
+              </>
+            )}
           </div>
 
-          <div className="bg-white rounded-sm shadow-sm border border-gray-100 p-5 flex items-center gap-4">
-            <div className="w-12 h-12 bg-blue-50 rounded-sm flex items-center justify-center flex-shrink-0">
-              <Clock className="w-6 h-6 text-blue-600" />
+          {/* Due this week */}
+          <div className="bg-white border border-gray-100 p-5">
+            <p className="font-mono-label text-gray-400 mb-3">due this week</p>
+            <div className="flex items-end gap-1.5 mb-1">
+              <span className="text-2xl font-bold text-gray-900 tracking-tight">{upcoming.length}</span>
+              <span className="text-xs text-gray-400 mb-1 font-mono">tasks</span>
             </div>
-            <div>
-              <p className="text-2xl font-semibold text-gray-800">{upcoming.length}</p>
-              <p className="text-xs font-medium text-gray-600">Due This Week</p>
-              <p className="text-xs text-gray-400">{upcoming.length === 0 ? 'All clear!' : `${upcoming[0]?.title.slice(0, 18)}…`}</p>
-            </div>
+            <p className="text-xs text-gray-400">
+              {upcoming.length === 0
+                ? 'Nothing due — you\'re ahead'
+                : upcoming.length === 1
+                ? `Next: ${upcoming[0]?.title.slice(0, 22)}…`
+                : `Next: ${upcoming[0]?.title.slice(0, 18)}…`}
+            </p>
           </div>
 
-          <div className="bg-white rounded-sm shadow-sm border border-gray-100 p-5 flex items-center gap-4">
-            <div className={`w-12 h-12 ${overdue.length > 0 ? 'bg-red-50' : 'bg-gray-50'} rounded-sm flex items-center justify-center flex-shrink-0`}>
+          {/* Overdue / week 1 */}
+          <div className={`bg-white border p-5 ${overdue.length > 0 ? 'border-red-100 bg-red-50/40' : 'border-gray-100'}`}>
+            <p className="font-mono-label text-gray-400 mb-3">{overdue.length > 0 ? 'overdue' : 'week 1 tasks'}</p>
+            <div className="flex items-end gap-1.5 mb-1">
+              <span className={`text-2xl font-bold tracking-tight ${overdue.length > 0 ? 'text-red-600' : 'text-gray-900'}`}>
+                {overdue.length > 0 ? overdue.length : tasks.filter(t => t.week === 1 && t.completed).length}
+              </span>
+              <span className="text-xs text-gray-400 mb-1 font-mono">
+                {overdue.length > 0 ? 'tasks' : `of ${tasks.filter(t => t.week === 1).length}`}
+              </span>
+            </div>
+            <p className="text-xs text-gray-400">
               {overdue.length > 0
-                ? <AlertCircle className="w-6 h-6 text-red-600" />
-                : <TrendingUp className="w-6 h-6 text-gray-900" />}
-            </div>
-            <div>
-              <p className="text-2xl font-semibold text-gray-800">{overdue.length > 0 ? overdue.length : tasks.filter(t => t.week === 1 && t.completed).length}</p>
-              <p className="text-xs font-medium text-gray-600">{overdue.length > 0 ? 'Overdue' : 'Week 1 Done'}</p>
-              <p className="text-xs text-gray-400">{overdue.length > 0 ? 'Needs attention' : `of ${tasks.filter(t => t.week === 1).length} tasks`}</p>
-            </div>
+                ? 'Needs attention'
+                : tasks.filter(t => t.week === 1).length === 0
+                ? 'No week 1 tasks yet'
+                : tasks.filter(t => t.week === 1 && t.completed).length === tasks.filter(t => t.week === 1).length
+                ? 'Week 1 complete ✓'
+                : 'Week 1 in progress'}
+            </p>
           </div>
         </div>
 

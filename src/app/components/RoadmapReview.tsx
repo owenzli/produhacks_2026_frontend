@@ -82,7 +82,7 @@ export default function RoadmapReview() {
   const matchCount  = filteredTasks.length;
 
   return (
-    <div className="min-h-full bg-gradient-to-br from-gray-50/30 via-white to-gray-50/20">
+    <div className="min-h-full bg-grid">
       {/* ── Sticky header ── */}
       <div className="bg-white border-b border-gray-100 px-4 py-4 sticky top-0 z-20 shadow-sm">
         <div className="max-w-5xl mx-auto">

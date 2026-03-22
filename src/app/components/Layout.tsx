@@ -41,7 +41,7 @@ export default function Layout() {
   }
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-50">
+    <div className="flex h-screen overflow-hidden bg-grid">
       {/* ── Sidebar ── */}
       <motion.aside
         initial={false}
