@@ -12,7 +12,7 @@ export function FilterBar({
   setSortBy: (s: SortKey) => void;
 }) {
   return (
-    <div className="bg-white border border-gray-100 rounded-2xl shadow-sm px-4 py-3">
+    <div className="bg-white border border-gray-100 rounded-sm shadow-sm px-4 py-3">
       <div className="flex items-center gap-3 flex-wrap">
         <div className="flex items-center gap-1.5 text-gray-400 flex-shrink-0">
           <Filter className="w-3.5 h-3.5" />
@@ -30,13 +30,13 @@ export function FilterBar({
                 key={opt.key}
                 onClick={() => setActiveFilter(opt.key)}
                 disabled={count === 0 && opt.key !== 'all'}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium transition-all flex-shrink-0 ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-sm border text-xs font-medium transition-all flex-shrink-0 ${
                   active ? opt.activeColor : opt.color
                 } ${count === 0 && opt.key !== 'all' ? 'opacity-40 cursor-default' : ''}`}
               >
                 <Icon className="w-3 h-3" />
                 {opt.label}
-                <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-semibold ${active ? 'bg-white/20' : 'bg-black/[0.07]'}`}>
+                <span className={`px-1.5 py-0.5 rounded-sm text-[10px] font-semibold ${active ? 'bg-white/20' : 'bg-black/[0.07]'}`}>
                   {count}
                 </span>
               </button>
@@ -53,7 +53,7 @@ export function FilterBar({
               <button
                 key={s.key}
                 onClick={() => setSortBy(s.key)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                className={`px-3 py-1.5 rounded-sm text-xs font-medium transition-all ${
                   sortBy === s.key ? 'bg-gray-800 text-white' : 'text-gray-500 hover:bg-gray-100'
                 }`}
               >

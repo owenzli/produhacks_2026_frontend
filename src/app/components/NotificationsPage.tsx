@@ -105,13 +105,13 @@ function buildNotifications(
 const TYPE_CONFIG: Record<NType, { bg: string; border: string; dot: string; label: string }> = {
   alert:   { bg: 'bg-amber-50',  border: 'border-amber-100',  dot: 'bg-amber-500',  label: 'Alert'   },
   info:    { bg: 'bg-blue-50',   border: 'border-blue-100',   dot: 'bg-blue-500',   label: 'Info'    },
-  success: { bg: 'bg-green-50',  border: 'border-green-100',  dot: 'bg-green-500',  label: 'Success' },
+  success: { bg: 'bg-gray-50',  border: 'border-gray-200',  dot: 'bg-gray-800',  label: 'Success' },
 };
 
 const ICON_COLORS: Record<NType, string> = {
   alert:   'text-amber-600',
   info:    'text-blue-600',
-  success: 'text-green-600',
+  success: 'text-gray-900',
 };
 
 export default function NotificationsPage() {
@@ -147,47 +147,45 @@ export default function NotificationsPage() {
   ];
 
   return (
-    <div className="min-h-full bg-gradient-to-br from-green-50/30 via-white to-emerald-50/20">
+    <div className="min-h-full bg-grid">
       {/* Header */}
-      <div className="bg-white border-b border-gray-100 px-6 py-5 sticky top-0 z-20 shadow-sm">
+      <div className="bg-white border-b border-gray-100 px-4 py-5 sticky top-0 z-20 shadow-sm">
         <div className="max-w-3xl mx-auto flex items-center gap-4">
           <button 
             onClick={() => navigate(-1)} 
-            className="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors flex-shrink-0">
-            <ArrowLeft className="w-5 h-5" />
+            className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0">
+            <ArrowLeft className="w-4 h-4" />
           </button>
-          <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center flex-shrink-0">
-            <Bell className="w-5 h-5 text-white" />
-          </div>
           <div className="flex-1">
-            <h1 className="text-gray-900">Notifications</h1>
-            <p className="text-gray-400 text-sm">
-              {unreadCount > 0 ? `${unreadCount} unread notification${unreadCount > 1 ? 's' : ''}` : 'All caught up!'}
+            <p className="font-mono-label text-gray-400 mb-1">launchpath / notifications</p>
+            <h1 className="text-gray-900 leading-none">Notifications</h1>
+            <p className="text-xs text-gray-400 font-mono mt-1">
+              {unreadCount > 0 ? `${unreadCount} unread` : 'all caught up'}
             </p>
           </div>
           {unreadCount > 0 && (
             <button onClick={markAllRead}
-              className="text-sm text-green-600 hover:text-green-700 font-medium px-3 py-1.5 rounded-lg hover:bg-green-50 transition-colors">
+              className="text-sm text-gray-900 hover:text-gray-900 font-medium px-3 py-1.5 rounded-sm hover:bg-gray-50 transition-colors">
               Mark all read
             </button>
           )}
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-6 py-6 space-y-4">
+      <div className="max-w-3xl mx-auto px-4 py-4 space-y-4">
         {/* Filter tabs */}
         <div className="flex items-center gap-2">
           <Filter className="w-3.5 h-3.5 text-gray-400" />
           <div className="flex gap-1">
             {FILTERS.map(f => (
               <button key={f.key} onClick={() => setFilter(f.key)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium border transition-all ${
                   filter === f.key
                     ? 'bg-gray-800 border-gray-800 text-white'
                     : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
                 }`}>
                 {f.label}
-                <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-semibold ${
+                <span className={`px-1.5 py-0.5 rounded-sm text-[10px] font-semibold ${
                   filter === f.key ? 'bg-white/20' : 'bg-gray-100 text-gray-500'
                 }`}>{f.count}</span>
               </button>
@@ -200,11 +198,13 @@ export default function NotificationsPage() {
           <AnimatePresence initial={false}>
             {filtered.length === 0 ? (
               <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                className="flex flex-col items-center justify-center py-20 text-gray-400">
-                <div className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center mb-3">
-                  <Bell className="w-6 h-6 opacity-40" />
+                className="empty-state">
+                <p className="empty-state-tag">inbox / clear</p>
+                <div className="empty-state-icon">
+                  <Bell className="w-5 h-5" />
                 </div>
-                <p className="text-sm font-medium">No notifications here</p>
+                <p className="empty-state-title">All quiet here</p>
+                <p className="empty-state-body">No alerts or updates for this filter. Doc debt and launch events will surface here.</p>
               </motion.div>
             ) : (
               filtered.map(n => {
@@ -215,14 +215,14 @@ export default function NotificationsPage() {
                   <motion.div key={n.id}
                     initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, x: -20, height: 0 }}
                     onClick={() => markRead(n.id)}
-                    className={`relative flex items-start gap-4 p-4 rounded-2xl border cursor-pointer transition-all hover:shadow-sm ${cfg.bg} ${cfg.border} ${isUnread ? 'shadow-sm' : ''}`}>
+                    className={`relative flex items-start gap-4 p-4 rounded-sm border cursor-pointer transition-all hover:shadow-sm ${cfg.bg} ${cfg.border} ${isUnread ? 'shadow-sm' : ''}`}>
                     {/* Unread dot */}
                     {isUnread && (
-                      <div className={`absolute top-4 right-4 w-2 h-2 rounded-full ${cfg.dot}`} />
+                      <div className={`absolute top-4 right-4 w-2 h-2 rounded-sm ${cfg.dot}`} />
                     )}
 
                     {/* Icon */}
-                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 bg-white/60 backdrop-blur-sm border ${cfg.border}`}>
+                    <div className={`w-9 h-9 rounded-sm flex items-center justify-center flex-shrink-0 bg-white/60 backdrop-blur-sm border ${cfg.border}`}>
                       <Icon className={`w-4 h-4 ${ICON_COLORS[n.type]}`} />
                     </div>
 
@@ -237,7 +237,7 @@ export default function NotificationsPage() {
 
                     {/* Dismiss */}
                     <button onClick={e => { e.stopPropagation(); dismiss(n.id); }}
-                      className="absolute top-3 right-3 p-1 rounded-lg hover:bg-white/60 transition-colors text-gray-300 hover:text-gray-500">
+                      className="absolute top-3 right-3 p-1 rounded-sm hover:bg-white/60 transition-colors text-gray-300 hover:text-gray-500">
                       <X className="w-3.5 h-3.5" />
                     </button>
                   </motion.div>
@@ -251,7 +251,7 @@ export default function NotificationsPage() {
         {visible.length > 0 && (
           <div className="flex justify-center pt-2">
             <button onClick={() => setDismissed(new Set(allNotifications.map(n => n.id)))}
-              className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-red-400 transition-colors px-3 py-1.5 rounded-lg hover:bg-red-50">
+              className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-red-400 transition-colors px-3 py-1.5 rounded-sm hover:bg-red-50">
               <Trash2 className="w-3 h-3" />Clear all notifications
             </button>
           </div>

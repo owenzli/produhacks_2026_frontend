@@ -34,7 +34,7 @@ function getTechSetupTasks(startDate: string): Task[] {
     mkTask({ title: 'VPN access configuration', owner: 'IT Team', dueDate: startDate, week: 1, isTechnicalSetup: true, category: 'Technical Setup', linkedDoc: 'https://wiki.acme.com/vpn-setup' }),
     mkTask({ title: 'Credentials: Jira, Slack, cloud console', owner: 'IT Team', dueDate: startDate, week: 1, isTechnicalSetup: true, category: 'Technical Setup', linkedDoc: 'https://wiki.acme.com/new-hire-credentials' }),
     mkTask({ title: 'Architecture documentation review', owner: 'Tech Lead', dueDate: addDays(startDate, 2), week: 1, isTechnicalSetup: true, category: 'Technical Setup', linkedDoc: 'https://notion.so/acme/system-architecture' }),
-    mkTask({ title: 'First PR / ticket assignment', owner: 'Tech Lead', dueDate: addDays(startDate, 4), week: 1, isTechnicalSetup: true, category: 'Technical Setup', linkedDoc: 'https://acme.atlassian.net/jira/good-first-issues' }),
+    mkTask({ title: 'Ship your first PR', owner: 'Tech Lead', dueDate: addDays(startDate, 4), week: 1, isTechnicalSetup: true, category: 'Technical Setup', linkedDoc: 'https://acute-cough-7de.notion.site/Onboarding-Task-Ship-Your-First-PR-32b7a7aff74a80d59b9cf3af73b2da44?source=copy_link' }),
   ];
 }
 
@@ -388,16 +388,18 @@ export function generateRoadmapTasks(info: HireInfo, customTemplates: CustomTemp
   return tasks.map(t => {
     if (t.week <= 1) return t;
     
-    // Scale week map from [2, 4] to [2, duration]
-    const originalW = Math.max(2, Math.min(4, t.week));
-    const newWeek = Math.round(2 + (originalW - 2) * (duration - 2) / 2);
-    
     const dDate = new Date(t.dueDate + 'T12:00:00');
-    const offsetDays = Math.round((dDate.getTime() - start.getTime()) / (1000 * 3600 * 24));
+    const originalOffsetDays = Math.round((dDate.getTime() - start.getTime()) / (1000 * 3600 * 24));
     
-    // Maintain day-of-week relative mapping
-    const dayOfWeek = offsetDays % 7;
-    const newOffset = (newWeek - 1) * 7 + dayOfWeek;
+    // Distribute tasks continuously over the remaining duration.
+    // Original template covers 21 days after week 1 (days 7 to 28)
+    const originalRemainingDays = Math.max(0, originalOffsetDays - 7);
+    const scaleFactor = ((duration - 1) * 7) / 21;
+    
+    const newRemainingDays = Math.round(originalRemainingDays * scaleFactor);
+    const newOffset = 7 + newRemainingDays;
+    
+    const newWeek = Math.floor(newOffset / 7) + 1;
     
     return {
       ...t,
