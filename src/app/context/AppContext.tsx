@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { WorkMode, RoleTemplate, TaskStatus, Week, ContactType, HireInfo, Task, TeamContact, HireRecord, CustomTemplate } from '../types';
+import { WorkMode, RoleTemplate, TaskStatus, Week, ContactType, HireInfo, Task, TeamContact, HireRecord, CustomTemplate, ManagerProfile } from '../types';
 import { generateRoadmapTasks } from '../data/taskTemplates';
 import { generateDefaultContacts } from '../data/contactTemplates';
 
@@ -36,6 +36,9 @@ interface AppContextType {
   setContacts: (contacts: TeamContact[]) => void;
   customTemplates: CustomTemplate[];
   addCustomTemplate: (t: CustomTemplate) => void;
+  managerProfile: ManagerProfile | null;
+  hasCompletedOnboarding: boolean;
+  completeManagerOnboarding: (profile: ManagerProfile) => void;
 }
 
 const AppContext = createContext<AppContextType | null>(null);
@@ -52,6 +55,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [hires, setHires] = useState<HireRecord[]>([]);
   const [activeHireId, setActiveHireId] = useState<string | null>(null);
   const [customTemplates, setCustomTemplates] = useState<CustomTemplate[]>([]);
+  const [managerProfile, setManagerProfile] = useState<ManagerProfile | null>(null);
+  const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(false);
+
+  function completeManagerOnboarding(profile: ManagerProfile) {
+    setManagerProfile(profile);
+    setHasCompletedOnboarding(true);
+  }
 
   const activeHire = hires.find(h => h.id === activeHireId) ?? null;
 
@@ -115,6 +125,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       updateTask, addTask, removeTask, setTasks,
       addContact, updateContact, removeContact, setContacts,
       customTemplates, addCustomTemplate: (t: CustomTemplate) => setCustomTemplates(prev => [...prev, t]),
+      managerProfile, hasCompletedOnboarding, completeManagerOnboarding,
     }}>
       {children}
     </AppContext.Provider>

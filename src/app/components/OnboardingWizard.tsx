@@ -275,14 +275,21 @@ export default function OnboardingWizard() {
         {step === 2 && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center">
-                  <Layers className="w-5 h-5 text-green-600" />
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center">
+                    <Layers className="w-5 h-5 text-green-600" />
+                  </div>
+                  <div>
+                    <h2 className="text-gray-900">Select a Role Template</h2>
+                    <p className="text-gray-500 text-sm">Templates auto-populate tasks, tech setup, and team contacts.</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-gray-900">Select a Role Template</h2>
-                  <p className="text-gray-500 text-sm">Templates auto-populate tasks, tech setup, and team contacts.</p>
-                </div>
+                <button onClick={() => navigate('/templates/new')}
+                  className="flex items-center gap-2 text-sm font-medium text-green-600 hover:text-green-700 bg-green-50 hover:bg-green-100 px-3 py-2 rounded-xl border border-green-100 transition-colors shadow-sm"
+                >
+                  <Plus className="w-4 h-4" /> Custom Template
+                </button>
               </div>
               <div className="flex items-center gap-2 mb-5 px-1">
                 <span className="text-xs text-gray-400">Showing templates for</span>

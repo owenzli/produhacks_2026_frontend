@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { useApp } from '../context/AppContext';
+import { ManagerSettingsModal } from './ManagerSettingsModal';
 import { motion, AnimatePresence } from 'motion/react';
 
 const setupNavItems = [
@@ -22,10 +23,11 @@ const activeNavItems = [
 
 export default function Layout() {
   const navigate = useNavigate();
-  const { hires, activeHireId, setActiveHireId, hireInfo, roadmapGenerated, launched, tasks } = useApp();
+  const { hires, activeHireId, setActiveHireId, hireInfo, roadmapGenerated, launched, tasks, managerProfile } = useApp();
   const docDebtCount = tasks.filter(t => !t.linkedDoc && !t.docDebtResolved).length;
   const [hireSwitcherOpen, setHireSwitcherOpen] = useState(false);
   const [navCollapsed, setNavCollapsed] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   function handleSwitchHire(id: string) {
     setActiveHireId(id);
@@ -252,11 +254,11 @@ export default function Layout() {
                         <div className="px-2 space-y-2">
                           <div className="flex items-center justify-between">
                             <span className="text-xs text-gray-500">Tasks</span>
-                            <span className="text-xs font-medium text-gray-700">{tasks.length}</span>
+                            <span className="text-xs font-medium text-gray-700 px-1.5">{tasks.length}</span>
                           </div>
                           <div className="flex items-center justify-between">
                             <span className="text-xs text-gray-500">Hires</span>
-                            <span className="text-xs font-medium text-gray-700">{hires.length}</span>
+                            <span className="text-xs font-medium text-gray-700 px-1.5">{hires.length}</span>
                           </div>
                           {docDebtCount > 0 && (
                             <div className="flex items-center justify-between">
@@ -344,49 +346,6 @@ export default function Layout() {
               </motion.div>
             )}
           </AnimatePresence>
-
-          {/* Persistent Workspace Links */}
-          <div className="mt-4 pt-4 border-t border-gray-100">
-            {!navCollapsed && <p className="text-gray-400 text-xs px-2 mb-2 uppercase tracking-wider">Workspace</p>}
-            <NavLink
-              to="/templates/new"
-              title={navCollapsed ? 'Template Builder' : undefined}
-              className={({ isActive }) =>
-                `flex items-center gap-3 rounded-xl transition-all group ${
-                  navCollapsed ? 'justify-center px-0 py-2.5' : 'px-3 py-2.5'
-                } ${
-                  isActive
-                    ? 'bg-green-50 text-green-700 shadow-sm'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
-                }`
-              }
-            >
-              {({ isActive }) => (
-                <>
-                  <div className={`rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
-                    navCollapsed ? 'w-9 h-9' : 'w-8 h-8'
-                  } ${
-                    isActive ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-500 group-hover:bg-gray-200'
-                  }`}>
-                    <LayoutList className="w-4 h-4" />
-                  </div>
-                  <AnimatePresence initial={false}>
-                    {!navCollapsed && (
-                      <motion.div
-                        initial={{ opacity: 0, width: 0 }}
-                        animate={{ opacity: 1, width: 'auto' }}
-                        exit={{ opacity: 0, width: 0 }}
-                        transition={{ duration: 0.15 }}
-                        className="flex-1 min-w-0 overflow-hidden"
-                      >
-                        <p className={`text-sm font-medium ${isActive ? 'text-green-700' : ''}`}>Role Templates</p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </>
-              )}
-            </NavLink>
-          </div>
         </nav>
 
         {/* Footer */}
@@ -409,9 +368,9 @@ export default function Layout() {
           </button>
 
           {/* Profile */}
-          <div className={`flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-gray-50 cursor-pointer ${navCollapsed ? 'justify-center' : ''}`}>
+          <div onClick={() => setSettingsOpen(true)} className={`flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-gray-50 cursor-pointer transition-colors ${navCollapsed ? 'justify-center' : ''}`}>
             <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
-              <span className="text-white text-xs font-semibold">SM</span>
+              <span className="text-white text-xs font-semibold">{managerProfile?.name?.charAt(0).toUpperCase() || 'M'}</span>
             </div>
             <AnimatePresence initial={false}>
               {!navCollapsed && (
@@ -423,8 +382,8 @@ export default function Layout() {
                   className="flex-1 min-w-0 overflow-hidden flex items-center gap-2"
                 >
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-800 truncate">Sarah Miller</p>
-                    <p className="text-xs text-gray-400 truncate">Engineering Manager</p>
+                    <p className="text-sm font-medium text-gray-800 truncate">{managerProfile?.name || 'Loading...'}</p>
+                    <p className="text-xs text-gray-400 truncate">{managerProfile?.role || 'Manager'}</p>
                   </div>
                   <Settings className="w-4 h-4 text-gray-400 flex-shrink-0" />
                 </motion.div>
@@ -461,7 +420,7 @@ export default function Layout() {
             <div className="w-px h-5 bg-gray-200" />
             <div className="flex items-center gap-2 px-3 py-1.5 bg-green-50 border border-green-100 rounded-lg">
               <Building2 className="w-4 h-4 text-green-600 flex-shrink-0" />
-              <span className="text-sm font-medium text-green-700">Acme Corp</span>
+              <span className="text-sm font-medium text-green-700">Product Management Company</span>
             </div>
           </div>
         </header>
@@ -513,6 +472,8 @@ export default function Layout() {
           </div>
         </div>
       </main>
+
+      <ManagerSettingsModal isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} />
     </div>
   );
 }

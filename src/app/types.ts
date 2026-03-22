@@ -21,6 +21,16 @@ export interface CustomTemplate {
   tasks: CustomTemplateTask[];
 }
 
+export interface ManagerProfile {
+  name: string;
+  role: string;
+  department: string;
+  avatarUrl: string;
+  teamSize: string;
+  commsTool: string;
+  privateDocs: Array<{ title: string; url: string }>;
+}
+
 export interface HireInfo {
   name: string;
   roleTitle: string;

@@ -388,16 +388,18 @@ export function generateRoadmapTasks(info: HireInfo, customTemplates: CustomTemp
   return tasks.map(t => {
     if (t.week <= 1) return t;
     
-    // Scale week map from [2, 4] to [2, duration]
-    const originalW = Math.max(2, Math.min(4, t.week));
-    const newWeek = Math.round(2 + (originalW - 2) * (duration - 2) / 2);
-    
     const dDate = new Date(t.dueDate + 'T12:00:00');
-    const offsetDays = Math.round((dDate.getTime() - start.getTime()) / (1000 * 3600 * 24));
+    const originalOffsetDays = Math.round((dDate.getTime() - start.getTime()) / (1000 * 3600 * 24));
     
-    // Maintain day-of-week relative mapping
-    const dayOfWeek = offsetDays % 7;
-    const newOffset = (newWeek - 1) * 7 + dayOfWeek;
+    // Distribute tasks continuously over the remaining duration.
+    // Original template covers 21 days after week 1 (days 7 to 28)
+    const originalRemainingDays = Math.max(0, originalOffsetDays - 7);
+    const scaleFactor = ((duration - 1) * 7) / 21;
+    
+    const newRemainingDays = Math.round(originalRemainingDays * scaleFactor);
+    const newOffset = 7 + newRemainingDays;
+    
+    const newWeek = Math.floor(newOffset / 7) + 1;
     
     return {
       ...t,
