@@ -119,32 +119,29 @@ export default function HelpPage() {
 
       <div className="max-w-4xl mx-auto px-4 py-5 space-y-10">
 
-        {/* Quick start */}
         <section>
-          <div className="flex items-center gap-2 mb-4">
-            <Zap className="w-4 h-4 text-gray-900" />
-            <h2 className="text-gray-800">Quick Start</h2>
-          </div>
-          <div className="bg-white rounded-sm border border-gray-100 shadow-sm p-6">
+          <p className="font-mono-label text-gray-400 mb-1">01 / start</p>
+          <h2 className="text-gray-900 mb-4">Quick Start</h2>
+          <div className="bg-white border border-gray-100 p-5">
             <div className="flex flex-col gap-3">
               {[
-                { step: 1, icon: Wand2, color: 'bg-gray-900', label: 'Open the Onboarding Wizard', desc: 'Enter the new hire\'s name, role, department, start date, and work mode.' },
-                { step: 2, icon: Flag, color: 'bg-blue-600', label: 'Choose a role template', desc: 'Select from 16 templates across 7 departments to auto-generate tasks.' },
-                { step: 3, icon: Map, color: 'bg-purple-600', label: 'Review and edit the roadmap', desc: 'Add docs, assign points of contact, fix doc debt, and add custom tasks.' },
-                { step: 4, icon: Users, color: 'bg-teal-600', label: 'Set up the team', desc: 'Add onboarding contacts and collaborators on the Team & Contacts tab.' },
-                { step: 5, icon: Rocket, color: 'bg-emerald-600', label: 'Approve & Launch', desc: 'Click "Approve & Launch" to activate the new hire\'s view.' },
+                { step: 1, icon: Wand2, label: 'Open the Onboarding Wizard', desc: 'Enter the new hire\'s name, role, department, start date, and work mode.' },
+                { step: 2, icon: Flag,  label: 'Choose a role template',      desc: 'Select from 16 templates across 7 departments to auto-generate tasks.' },
+                { step: 3, icon: Map,   label: 'Review and edit the roadmap', desc: 'Add docs, assign points of contact, fix doc debt, and add custom tasks.' },
+                { step: 4, icon: Users, label: 'Set up the team',             desc: 'Add onboarding contacts and collaborators on the Team & Contacts tab.' },
+                { step: 5, icon: Rocket,label: 'Approve & Launch',            desc: 'Click "Approve & Launch" to activate the new hire\'s view.' },
               ].map((s, i) => (
                 <div key={s.step} className="flex items-start gap-4">
-                  <div className={`w-8 h-8 ${s.color} rounded-sm flex items-center justify-center flex-shrink-0 text-white`}>
-                    <s.icon className="w-4 h-4" />
+                  <div className="w-7 h-7 bg-gray-900 flex items-center justify-center flex-shrink-0 text-white">
+                    <s.icon className="w-3.5 h-3.5" />
                   </div>
                   <div className="flex-1 min-w-0 pt-0.5">
-                    <p className="text-sm font-semibold text-gray-800">{s.label}</p>
-                    <p className="text-sm text-gray-500">{s.desc}</p>
+                    <p className="text-sm font-semibold text-gray-900">{s.label}</p>
+                    <p className="text-xs text-gray-400 mt-0.5">{s.desc}</p>
                   </div>
                   {i < 4 && (
                     <div className="self-stretch flex items-center">
-                      <ArrowRight className="w-3.5 h-3.5 text-gray-300 flex-shrink-0" />
+                      <ArrowRight className="w-3.5 h-3.5 text-gray-200 flex-shrink-0" />
                     </div>
                   )}
                 </div>
@@ -155,19 +152,17 @@ export default function HelpPage() {
 
         {/* Features */}
         <section>
-          <div className="flex items-center gap-2 mb-4">
-            <BookOpen className="w-4 h-4 text-gray-900" />
-            <h2 className="text-gray-800">Feature Guide</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <p className="font-mono-label text-gray-400 mb-1">02 / features</p>
+          <h2 className="text-gray-900 mb-4">Feature Guide</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {FEATURES.map(f => (
-              <div key={f.title} className="bg-white rounded-sm border border-gray-100 shadow-sm p-5 flex items-start gap-4">
-                <div className={`w-9 h-9 bg-gradient-to-br ${f.color} rounded-sm flex items-center justify-center flex-shrink-0`}>
+              <div key={f.title} className="bg-white border border-gray-100 p-4 flex items-start gap-3">
+                <div className="w-8 h-8 bg-gray-900 flex items-center justify-center flex-shrink-0">
                   <f.icon className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-800 mb-1">{f.title}</p>
-                  <p className="text-xs text-gray-500 leading-relaxed">{f.desc}</p>
+                  <p className="text-sm font-semibold text-gray-900 mb-0.5">{f.title}</p>
+                  <p className="text-xs text-gray-400 leading-relaxed">{f.desc}</p>
                 </div>
               </div>
             ))}
@@ -225,17 +220,12 @@ export default function HelpPage() {
           </div>
         </section>
 
-        {/* Contact */}
         <section>
-          <div className="bg-gradient-to-r from-gray-800 to-gray-900 rounded-sm p-4 text-white">
-            <div className="flex items-center gap-3 mb-2">
-              <MessageCircle className="w-5 h-5" />
-              <h3 className="font-semibold">Still need help?</h3>
-            </div>
-            <p className="text-green-100 text-sm mb-4">
-              Reach out to your LaunchPath admin or send us a message and we'll get back to you within one business day.
-            </p>
-            <button className="bg-white text-gray-900 text-sm font-semibold px-4 py-2 rounded-sm hover:bg-gray-50 transition-colors">
+          <div className="bg-gray-900 p-5 text-white">
+            <p className="font-mono-label text-white/40 mb-2">support</p>
+            <h3 className="font-bold text-lg tracking-tight mb-1">Still need help?</h3>
+            <p className="text-white/60 text-sm mb-4">Reach out to your LaunchPath admin or send us a message and we'll get back to you within one business day.</p>
+            <button className="bg-white text-gray-900 text-sm font-semibold px-4 py-2 hover:bg-gray-100 transition-colors">
               Contact Support
             </button>
           </div>

@@ -78,11 +78,10 @@ export default function ManagerOnboarding() {
             return (
               <React.Fragment key={s}>
                 <div className="flex flex-col items-center gap-1.5">
-                  <div className={`w-6 h-6 border-2 flex items-center justify-center transition-all text-xs font-mono font-bold ${
-                    isDone ? 'bg-gray-900 border-gray-900 text-white' :
-                    isActive ? 'bg-white border-gray-900 text-gray-900' :
-                    'bg-white border-gray-300 text-gray-400'
-                  }`}>
+                  <div className={`w-6 h-6 border-2 flex items-center justify-center transition-all text-xs font-mono font-bold ${isDone ? 'bg-gray-900 border-gray-900 text-white' :
+                      isActive ? 'bg-white border-gray-900 text-gray-900' :
+                        'bg-white border-gray-300 text-gray-400'
+                    }`}>
                     {isDone ? <CheckCircle2 className="w-3.5 h-3.5" /> : s}
                   </div>
                   <span className={`font-mono-label tracking-wider ${isActive ? 'text-gray-900' : isDone ? 'text-gray-500' : 'text-gray-300'}`}>{label}</span>
@@ -149,9 +148,8 @@ export default function ManagerOnboarding() {
                     <div className="grid grid-cols-4 gap-2">
                       {TEAM_SIZES.map(size => (
                         <button key={size} onClick={() => setForm(f => ({ ...f, teamSize: size }))}
-                          className={`py-2.5 text-sm font-medium border transition-all ${
-                            form.teamSize === size ? 'bg-gray-900 border-gray-900 text-white' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-400'
-                          }`}>
+                          className={`py-2.5 text-sm font-medium border transition-all ${form.teamSize === size ? 'bg-gray-900 border-gray-900 text-white' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-400'
+                            }`}>
                           {size}
                         </button>
                       ))}
@@ -163,9 +161,8 @@ export default function ManagerOnboarding() {
                     <div className="grid grid-cols-3 gap-2">
                       {COMMS_TOOLS.map(tool => (
                         <button key={tool.id} onClick={() => setForm(f => ({ ...f, commsTool: tool.id }))}
-                          className={`py-2.5 text-sm font-medium border transition-all ${
-                            form.commsTool === tool.id ? 'bg-gray-900 border-gray-900 text-white' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-400'
-                          }`}>
+                          className={`py-2.5 text-sm font-medium border transition-all ${form.commsTool === tool.id ? 'bg-gray-900 border-gray-900 text-white' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-400'
+                            }`}>
                           {tool.label}
                         </button>
                       ))}

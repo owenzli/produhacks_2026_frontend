@@ -44,6 +44,7 @@ export interface HireInfo {
 export interface Task {
   id: string;
   title: string;
+  description?: string;
   owner: string;
   dueDate: string;
   linkedDoc: string;

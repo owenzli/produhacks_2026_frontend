@@ -143,24 +143,19 @@ export default function OnboardingWizard() {
     <div className="min-h-full bg-gradient-to-br from-gray-50/40 via-white to-gray-50/30 p-6">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
-        <div className="mb-5">
-          <div className="flex items-center justify-between">
+          <div className="flex items-start justify-between mb-5">
             <div>
-              <div className="flex items-center gap-2 text-gray-900 mb-2">
-                <Wand2 className="w-5 h-5" />
-                <span className="text-sm font-medium">Onboarding Wizard</span>
-              </div>
-              <h1 className="text-gray-900">Set Up a New Hire Onboarding Plan</h1>
-              <p className="text-gray-500 mt-1">Complete three steps to generate a personalized week-by-week roadmap.</p>
+              <p className="font-mono-label text-gray-400 mb-2">launchpath / new-hire</p>
+              <h1 className="text-gray-900">New Hire Setup</h1>
+              <p className="text-sm text-gray-400 mt-1.5 max-w-md">Three steps to generate a personalized week-by-week onboarding roadmap.</p>
             </div>
             {hires.length > 0 && (
-              <div className="bg-gray-50 border border-gray-200 rounded-sm px-4 py-2.5 text-right">
-                <p className="text-xs text-gray-900 font-medium">{hires.length} hire{hires.length !== 1 ? 's' : ''} active</p>
-                <p className="text-xs text-gray-500 mt-0.5">Adding another one</p>
+              <div className="border border-gray-200 px-4 py-2.5 text-right flex-shrink-0">
+                <p className="text-xs font-mono font-medium text-gray-900">{hires.length} hire{hires.length !== 1 ? 's' : ''} active</p>
+                <p className="text-xs text-gray-400 font-mono mt-0.5">adding another</p>
               </div>
             )}
           </div>
-        </div>
 
         {/* Step indicator */}
         <div className="flex items-center gap-0 mb-8">
@@ -198,6 +193,20 @@ export default function OnboardingWizard() {
             </div>
 
             <div className="grid grid-cols-2 gap-5">
+
+              {/* Avatar placeholder */}
+              <div className="col-span-2 flex items-center gap-4 pb-2 border-b border-gray-100">
+                <div className="w-14 h-14 bg-gray-900 flex items-center justify-center flex-shrink-0 border border-gray-800">
+                  <span className="text-white font-mono font-semibold text-xl tracking-tight">
+                    {form.name.trim() ? form.name.trim()[0].toUpperCase() : '?'}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-900">{form.name.trim() || 'New Hire'}</p>
+                  <p className="text-xs text-gray-400 font-mono">{form.roleTitle?.trim() || 'Role TBD'}</p>
+                </div>
+              </div>
+
               <div className="col-span-2">
                 <label className="block text-sm text-gray-700 mb-1.5">Full Name <span className="text-red-400">*</span></label>
                 <input type="text" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
@@ -242,23 +251,41 @@ export default function OnboardingWizard() {
                   ))}
                 </div>
               </div>
-              <div className="col-span-2 mt-2 bg-gray-50/50 p-5 rounded-sm border border-gray-200">
-                <label className="block text-sm text-gray-700 mb-3 flex items-center justify-between">
-                  <span className="font-medium flex items-center gap-2"><Calendar className="w-4 h-4 text-gray-900" /> Onboarding Duration</span>
-                  <span className="font-bold text-gray-900 bg-white px-3 py-1 rounded-sm border border-gray-200 shadow-sm">{form.onboardingDuration} Weeks</span>
-                </label>
-                <div className="flex items-center gap-4">
-                  <span className="text-xs text-gray-500 font-medium w-16 text-right">2 weeks</span>
-                  <input type="range" min="2" max="12" step="1" 
-                    value={form.onboardingDuration} onChange={e => setForm(f => ({ ...f, onboardingDuration: parseInt(e.target.value) }))}
-                    className="flex-1 h-2.5 bg-gray-200 rounded-sm appearance-none cursor-pointer accent-green-600" />
-                  <span className="text-xs text-gray-500 font-medium w-16">3 months</span>
+              <div className="col-span-2 mt-2 border border-gray-200 bg-white">
+                {/* Header row */}
+                <div className="flex items-center justify-between px-5 pt-4 pb-3 border-b border-gray-100">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-gray-400" />
+                    <span className="text-sm font-medium text-gray-700">Onboarding Duration</span>
+                  </div>
+                  <p className="text-xs text-gray-400 font-mono">
+                    {form.onboardingDuration === 2 ? "Quick ramp-up — compressed tasks." :
+                     form.onboardingDuration > 8 ? "Deep integration phase." :
+                     "Balanced onboarding spread."}
+                  </p>
                 </div>
-                <p className="text-xs text-gray-500 text-center mt-3">
-                  {form.onboardingDuration === 2 ? "Standard 2-week quick ramp-up. Tasks will be highly compressed." : 
-                   form.onboardingDuration > 8 ? "Deep integration phase. Roadmaps will stretch milestone evaluations to " + form.onboardingDuration + " weeks." : 
-                   "Balanced onboarding spread across " + form.onboardingDuration + " weeks."}
-                </p>
+                {/* Big display number */}
+                <div className="flex items-center gap-6 px-5 py-4">
+                  <div className="flex-shrink-0">
+                    <span className="font-mono font-black text-gray-900 leading-none" style={{ fontSize: '3.5rem' }}>
+                      {form.onboardingDuration}
+                    </span>
+                    <span className="text-base font-semibold text-gray-400 ml-2">wks</span>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono-label text-gray-400">2</span>
+                      <span className="font-mono-label text-gray-400">12</span>
+                    </div>
+                    <input type="range" min="2" max="12" step="1"
+                      value={form.onboardingDuration} onChange={e => setForm(f => ({ ...f, onboardingDuration: parseInt(e.target.value) }))}
+                      className="w-full h-1.5 bg-gray-200 appearance-none cursor-pointer accent-gray-900" />
+                    <div className="flex items-center justify-between mt-2">
+                      <span className="font-mono-label text-gray-300">2 weeks</span>
+                      <span className="font-mono-label text-gray-300">3 months</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 

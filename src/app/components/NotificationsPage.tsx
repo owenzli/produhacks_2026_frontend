@@ -153,16 +153,14 @@ export default function NotificationsPage() {
         <div className="max-w-3xl mx-auto flex items-center gap-4">
           <button 
             onClick={() => navigate(-1)} 
-            className="w-10 h-10 flex items-center justify-center rounded-sm bg-gray-50 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors flex-shrink-0">
-            <ArrowLeft className="w-5 h-5" />
+            className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0">
+            <ArrowLeft className="w-4 h-4" />
           </button>
-          <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-sm flex items-center justify-center flex-shrink-0">
-            <Bell className="w-5 h-5 text-white" />
-          </div>
           <div className="flex-1">
-            <h1 className="text-gray-900">Notifications</h1>
-            <p className="text-gray-400 text-sm">
-              {unreadCount > 0 ? `${unreadCount} unread notification${unreadCount > 1 ? 's' : ''}` : 'All caught up!'}
+            <p className="font-mono-label text-gray-400 mb-1">launchpath / notifications</p>
+            <h1 className="text-gray-900 leading-none">Notifications</h1>
+            <p className="text-xs text-gray-400 font-mono mt-1">
+              {unreadCount > 0 ? `${unreadCount} unread` : 'all caught up'}
             </p>
           </div>
           {unreadCount > 0 && (

@@ -87,13 +87,10 @@ export default function RoadmapReview() {
       <div className="bg-white border-b border-gray-100 px-4 py-4 sticky top-0 z-20 shadow-sm">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center gap-4 mb-3">
-            <div className="flex-1">
-              <span className="text-xs text-gray-400 font-medium uppercase tracking-wide">Roadmap Review</span>
-              <h1 className="text-gray-900 flex items-center gap-2">
-                {hireInfo?.name}
-                <span className="text-gray-400 text-lg">·</span>
-                <span className="text-gray-500 font-normal">{hireInfo?.roleTitle}</span>
-              </h1>
+            <div className="flex-1 min-w-0">
+              <p className="font-mono-label text-gray-400 mb-1">launchpath / roadmap</p>
+              <h1 className="text-gray-900 leading-none">{hireInfo?.name}</h1>
+              <p className="text-sm text-gray-400 font-mono mt-1">{hireInfo?.roleTitle}</p>
             </div>
             <div className="flex items-center gap-2">
               <button onClick={() => setShowPreview(true)}

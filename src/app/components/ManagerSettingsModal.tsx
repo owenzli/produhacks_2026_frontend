@@ -128,7 +128,7 @@ export function ManagerSettingsModal({ isOpen, onClose }: { isOpen: boolean; onC
                           <p className="text-xs text-gray-400 truncate">{doc.url}</p>
                         </div>
                       </div>
-                      <button onClick={() => removeDoc(idx)} className="text-gray-400 hover:text-red-500 p-1.5 rounded-md hover:bg-red-50 opacity-0 group-hover:opacity-100 transition-all">
+                      <button onClick={() => removeDoc(idx)} className="text-gray-400 hover:text-red-500 p-1.5 rounded-sm hover:bg-red-50 opacity-0 group-hover:opacity-100 transition-all">
                         <X className="w-4 h-4" />
                       </button>
                     </div>

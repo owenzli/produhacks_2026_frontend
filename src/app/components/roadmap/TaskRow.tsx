@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { AlertTriangle, CheckCircle2, Plus, Trash2, Edit3, Save, X, ExternalLink, Link2, FileText, UserCheck, Calendar, Wrench } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, Plus, Trash2, Edit3, Save, X, ExternalLink, Link2, FileText, UserCheck, Calendar, Wrench, ChevronDown } from 'lucide-react';
 import { useApp, Task, TaskStatus, isDocDebt } from '../../context/AppContext';
 import { POC_LIST, STATUS_CONFIG, STATUS_CYCLE } from './constants';
 
@@ -36,7 +36,7 @@ export function DocBadge({ url }: { url: string }) {
   return (
     <span
       title={m.label}
-      className={`inline-flex items-center justify-center w-5 h-5 rounded text-[9px] font-bold flex-shrink-0 ${m.bg} ${m.text}`}
+      className={`inline-flex items-center justify-center w-5 h-5 rounded-sm text-[9px] font-bold flex-shrink-0 ${m.bg} ${m.text}`}
     >
       {m.abbr}
     </span>
@@ -109,6 +109,9 @@ export function TaskRow({ task }: { task: Task }) {
   const [editingTitle, setEditingTitle]   = useState(false);
   const [titleDraft,   setTitleDraft]     = useState(task.title);
   const [showDebtPanel, setShowDebtPanel] = useState(false);
+  const [showDesc, setShowDesc]           = useState(false);
+  const [editingDesc, setEditingDesc]     = useState(false);
+  const [descDraft, setDescDraft]         = useState(task.description ?? '');
 
   const debt      = isDocDebt(task);
   const today     = new Date().toISOString().split('T')[0];
@@ -119,11 +122,25 @@ export function TaskRow({ task }: { task: Task }) {
     setEditingTitle(false);
   }
 
+  function saveDesc() {
+    updateTask(task.id, { description: descDraft.trim() || undefined });
+    setEditingDesc(false);
+  }
+
   const statusCfg = STATUS_CONFIG[task.status];
 
   return (
     <div className={`group ${debt ? 'bg-amber-50/60' : 'hover:bg-gray-50/60'} transition-colors`}>
       <div className={`flex items-center gap-3 px-4 py-3 border-b ${debt ? 'border-amber-100' : 'border-gray-50'}`}>
+
+        {/* Expand description chevron */}
+        <button
+          onClick={() => { setShowDesc(v => !v); setEditingDesc(false); }}
+          className={`flex-shrink-0 transition-colors ${showDesc ? 'text-gray-500' : 'text-gray-200 group-hover:text-gray-400'}`}
+          title={task.description ? 'View description' : 'Add description'}
+        >
+          <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-150 ${showDesc ? 'rotate-180' : ''}`} />
+        </button>
 
         {/* Tech-setup dot indicator */}
         <div className={`w-1.5 h-1.5 rounded-sm flex-shrink-0 mt-0.5 self-start ${task.isTechnicalSetup ? 'bg-blue-400' : 'bg-gray-200'}`} />
@@ -145,11 +162,14 @@ export function TaskRow({ task }: { task: Task }) {
           ) : (
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-sm text-gray-800 truncate">{task.title}</span>
+              {task.description && !showDesc && (
+                <span className="text-[10px] font-mono text-gray-300 truncate max-w-[140px] hidden sm:inline">{task.description}</span>
+              )}
               <button onClick={() => { setEditingTitle(true); setTitleDraft(task.title); }}
-                className="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-100 rounded transition-all flex-shrink-0">
+                className="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-100 rounded-sm transition-all flex-shrink-0">
                 <Edit3 className="w-3 h-3 text-gray-400" />
               </button>
-              {/* Tags — uniform height via h-5 */}
+              {/* Tags */}
               {task.isTechnicalSetup && (
                 <span className="inline-flex items-center gap-1 h-5 text-xs bg-blue-100 text-blue-700 px-2 rounded-sm flex-shrink-0">
                   <Wrench className="w-2.5 h-2.5" />Setup
@@ -196,7 +216,7 @@ export function TaskRow({ task }: { task: Task }) {
                 <span className="truncate">{getDocMeta(task.linkedDoc).label}</span>
                 <ExternalLink className="w-2.5 h-2.5 flex-shrink-0 opacity-60" />
               </a>
-              <button onClick={() => updateTask(task.id, { linkedDoc: '', docDebtResolved: false })} className="text-green-400 hover:text-gray-900 flex-shrink-0">
+              <button onClick={() => updateTask(task.id, { linkedDoc: '', docDebtResolved: false })} className="text-gray-400 hover:text-gray-900 flex-shrink-0">
                 <X className="w-2.5 h-2.5" />
               </button>
             </div>
@@ -210,7 +230,7 @@ export function TaskRow({ task }: { task: Task }) {
           )}
         </div>
 
-        {/* Status — dropdown */}
+        {/* Status */}
         <div className="flex-shrink-0 w-28">
           <select
             value={task.status}
@@ -230,6 +250,59 @@ export function TaskRow({ task }: { task: Task }) {
         </button>
       </div>
 
+      {/* ── Description panel ─────────────────────────────────── */}
+      <AnimatePresence>
+        {showDesc && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden"
+          >
+            <div className="pl-10 pr-4 py-3 border-b border-gray-50 bg-gray-50/50">
+              {editingDesc ? (
+                <div className="flex flex-col gap-2">
+                  <textarea
+                    autoFocus
+                    value={descDraft}
+                    onChange={e => setDescDraft(e.target.value)}
+                    onKeyDown={e => { if (e.key === 'Escape') { setEditingDesc(false); setDescDraft(task.description ?? ''); } }}
+                    placeholder="Add context, acceptance criteria, links…"
+                    rows={3}
+                    className="w-full text-xs font-mono text-gray-700 bg-white border border-gray-200 rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200 resize-none leading-relaxed"
+                  />
+                  <div className="flex gap-2">
+                    <button onClick={saveDesc}
+                      className="text-xs bg-gray-900 text-white px-3 py-1 rounded-sm hover:bg-black transition-colors flex items-center gap-1">
+                      <Save className="w-3 h-3" />Save
+                    </button>
+                    <button onClick={() => { setEditingDesc(false); setDescDraft(task.description ?? ''); }}
+                      className="text-xs text-gray-500 hover:text-gray-700 px-3 py-1 rounded-sm hover:bg-gray-100 transition-colors">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : task.description ? (
+                <div className="flex gap-3 group/desc items-start">
+                  <p className="text-xs font-mono text-gray-500 leading-relaxed flex-1 whitespace-pre-wrap">{task.description}</p>
+                  <button
+                    onClick={() => { setEditingDesc(true); setDescDraft(task.description ?? ''); }}
+                    className="opacity-0 group-hover/desc:opacity-100 p-1 hover:bg-gray-200 rounded-sm transition-all flex-shrink-0">
+                    <Edit3 className="w-3 h-3 text-gray-400" />
+                  </button>
+                </div>
+              ) : (
+                <button onClick={() => setEditingDesc(true)}
+                  className="text-xs text-gray-400 hover:text-gray-600 flex items-center gap-1.5 transition-colors py-0.5">
+                  <Plus className="w-3 h-3" />Add a description…
+                </button>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Doc Debt panel ────────────────────────────────────── */}
       <AnimatePresence>
         {showDebtPanel && (
           <DocDebtPanel task={task} onUpdate={u => updateTask(task.id, u)} onClose={() => setShowDebtPanel(false)} />
